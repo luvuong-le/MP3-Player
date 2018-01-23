@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Music Player</title>
+
+    <?php require 'mp_playlist_get.php' ?>
+</head>
+<body>
+    <div class="mp">
+        <div class="mp__details">
+            <img src="http://via.placeholder.com/150x150" alt="Cover">
+            <div class="mp__playing">
+                <h3>Now Playing </h3>
+                <p id="mp__playing-now" class="mp__playing-now"></p>
+                <div class="mp__controls">
+                    <button id="mp__controls-previous" class="mp__controls-btn">
+                        <svg class="mp__controls-icon">
+                            <use  xlink:href="icons/sprite.svg#icon-previous2"></use>
+                        </svg>
+                    </button>
+                    <button id="mp__controls-playpause" class="mp__controls-btn">                                <svg class="mp__controls-icon">
+                            <use id="playpauseicon"xlink:href="icons/sprite.svg#icon-play3"></use>
+                        </svg>
+                    </button>
+                    <button id="mp__controls-next" class="mp__controls-btn">                                <svg class="mp__controls-icon">
+                            <use xlink:href="icons/sprite.svg#icon-next2"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="mp__song-duration">
+                <span class="mp__song-duration-start">0:00</span>
+                <div class="mp__song-duration-bar"></div>
+                <span class="mp__song-duration-end">4:00</span>
+            </div>
+            <div class="mp__volume">
+                <svg class="mp__volume-icon">
+                    <use id="volumeicon" xlink:href="icons/sprite.svg#icon-volume-low"></use>
+                </svg>
+                <input type="range" id="mp__volume-slider" class="mp__volume-slider" value="0" min="0" max="100">
+            </div>
+        </div>
+        <div class="mp__playlist">
+            <h4>Playlist</h4>
+            <div id="mp__playlist-items"class="mp__playlist-items">   
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
