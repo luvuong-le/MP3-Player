@@ -33,9 +33,9 @@
                 </div>
             </div>
             <div class="mp__song-duration">
-                <span class="mp__song-duration-start">0:00</span>
-                <div class="mp__song-duration-bar"></div>
-                <span class="mp__song-duration-end">4:00</span>
+                <span id="mp__song-duration-start" class="mp__song-duration-start">0:00</span>
+                <div id="mp__song-duration-bar" class="mp__song-duration-bar"></div>
+                <span id="mp__song-duration-end" class="mp__song-duration-end">4:00</span>
             </div>
             <div class="mp__volume">
                 <svg class="mp__volume-icon">
@@ -45,12 +45,13 @@
             </div>
         </div>
         <div class="mp__playlist">
-            <h4>Playlist</h4>
+            <h4>Song List</h4>
             <div id="mp__playlist-items"class="mp__playlist-items">   
             </div>
         </div>
     </div>
 
     <script src="js/app.js"></script>
+    <script src="js/moment.js"></script>
 </body>
 </html>

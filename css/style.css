@@ -9,35 +9,24 @@ html {
 
 .mp {
   font-family: 'VT323', monospace;
-  width: 30%;
-  height: 70%;
+  width: 40%;
+  height: 80%;
   background-color: #000;
   color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 2rem; }
+  font-size: 2rem;
+  padding: 1.5rem; }
   .mp__details {
     display: grid;
     grid-template-rows: max-content 4rem min-content;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1rem;
+    grid-template-columns: max-content 1fr;
+    grid-column-gap: 3rem;
+    grid-row-gap: 1rem;
     height: 40%;
     padding: 1.5rem; }
-  .mp__playlist {
-    height: 60%;
-    overflow: auto; }
-    .mp__playlist-btn {
-      width: 100%;
-      border: 0;
-      padding: 1rem;
-      text-align: left;
-      cursor: pointer;
-      margin: 1rem 0;
-      background: transparent;
-      color: #fff;
-      border: 1px solid #fff; }
   .mp__playing {
     display: flex;
     flex-flow: column;
@@ -64,7 +53,8 @@ html {
     grid-column: 1 / -1;
     display: grid;
     grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(2, 1fr); }
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem; }
     .mp__song-duration-bar {
       grid-row: 2 / -1;
       grid-column: 1 / -1;
@@ -76,7 +66,8 @@ html {
     .mp__song-duration-end {
       justify-self: end; }
   .mp__volume {
-    grid-column: 1 / -1; }
+    grid-column: 1 / -1;
+    margin-top: 1rem; }
     .mp__volume-slider {
       width: 85%;
       background-color: gray;
@@ -89,4 +80,28 @@ html {
       height: 2rem;
       fill: #fff; }
   .mp__playlist {
+    height: 60%;
     padding: 3rem; }
+    .mp__playlist-items {
+      height: 100%;
+      width: 100%;
+      overflow: auto;
+      padding-right: 1rem; }
+    .mp__playlist-btn {
+      transition: all .2s;
+      width: 100%;
+      border: 0;
+      padding: 1rem;
+      text-align: left;
+      cursor: pointer;
+      margin: 1rem 0;
+      background: transparent;
+      color: #fff;
+      border: 1px solid #fff; }
+      .mp__playlist-btn:hover {
+        background: #fff;
+        color: #000;
+        border: 1px solid #000;
+        transform: translateY(-0.5rem); }
+      .mp__playlist-btn:active {
+        transform: translateY(1rem); }

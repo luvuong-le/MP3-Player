@@ -15,6 +15,10 @@ let musicPlayer = {
 
         // Slider
         volume: document.getElementById('mp__volume-slider'),
+
+        // Duration
+        songStartTime: document.getElementById("mp__song-duration-start"),
+        songEndTime: document.getElementById("mp__song-duration-end"),
     },
 
     readFile: (callback) => {
@@ -51,18 +55,42 @@ let musicPlayer = {
         musicPlayer.stopAllSongs();
         let songToPlay = new Audio(`music/${songName}`);
         songToPlay.innerHTML = songName;
-        songToPlay.volume = musicPlayer.e.volume.value / 100;
-        musicPlayer.e.currentlyPlaying.push(songToPlay);
-        console.log(songToPlay);
-        songToPlay.play();
 
-        setInterval(() => {
-            console.log(Math.floor(songToPlay.currentTime));
-        }, 1000);
-        musicPlayer.updateDetails();
+        songToPlay.addEventListener("loadedmetadata", () => {
+            // Set the initial volume of the song based on where the slider is 
+            songToPlay.volume = musicPlayer.e.volume.value / 100;
 
-        //Change SVG to Pause
-        musicPlayer.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2")
+            musicPlayer.e.currentlyPlaying.push(songToPlay);
+            console.log(songToPlay);
+            songToPlay.play();
+
+            // Update Details
+            musicPlayer.updateDetails();
+
+            //Change SVG to Pause
+            musicPlayer.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2")
+        });
+
+        songToPlay.addEventListener("timeupdate", () => {
+            let time = songToPlay.currentTime * 1000;
+            let currentTime = moment.utc(time).format("mm:ss");
+            
+            // Update song timer
+            musicPlayer.e.songStartTime.innerHTML = currentTime;
+        });
+
+        // Check if song has ended if so play the next song
+        songToPlay.addEventListener("ended", () => {
+            musicPlayer.playNextSong();
+        });
+    },
+
+    playNextSong: () => {
+        let songIndex = musicPlayer.findIndex() == musicPlayer.e.songItems.length - 1 ? 0 : musicPlayer.findIndex() + 1;
+
+        let songName = musicPlayer.e.songItems[songIndex].innerHTML;
+
+        musicPlayer.playSong(songName);
     },
 
     resumeSong: () => {
@@ -89,7 +117,7 @@ let musicPlayer = {
     addListeners: () => {
         for (let song of musicPlayer.e.songItems) {
             // Add event listener 
-            song.addEventListener("click", (e) => {
+            song.addEventListener("dblclick", (e) => {
                 musicPlayer.playSong(e.target.innerHTML);
             });
         }
@@ -115,11 +143,7 @@ let musicPlayer = {
         });
 
         musicPlayer.e.next.addEventListener("click", () => {
-            let songIndex = musicPlayer.findIndex() == musicPlayer.e.songItems.length - 1 ? 0 : musicPlayer.findIndex() + 1;
-
-            let songName = musicPlayer.e.songItems[songIndex].innerHTML;
-
-            musicPlayer.playSong(songName);
+            musicPlayer.playNextSong();
         });
 
         musicPlayer.e.volume.addEventListener("input", () => {
@@ -155,7 +179,14 @@ let musicPlayer = {
 
     updateDetails: () => {
         // Update Title Name
-        musicPlayer.e.nowPlaying.innerHTML = musicPlayer.e.currentlyPlaying[0].innerHTML;
+        //musicPlayer.e.nowPlaying.innerHTML = musicPlayer.e.currentlyPlaying[0].innerHTML;
+        initTypeWriter(musicPlayer.e.currentlyPlaying[0]);
+        setInterval(() => {
+            initTypeWriter(musicPlayer.e.currentlyPlaying[0]);
+        }, 60000);
+        
+        // Update Song Duration
+        musicPlayer.e.songEndTime.innerHTML = moment.utc(musicPlayer.e.currentlyPlaying[0].duration * 1000).format("mm:ss");
     },
 
     init: () => {
@@ -164,3 +195,22 @@ let musicPlayer = {
 };
 
 musicPlayer.init();
+
+
+function initTypeWriter(songName) {
+    let i = 0;
+    const textLength = songName.innerHTML.length;
+    const actualText = songName.innerHTML;
+    musicPlayer.e.nowPlaying.innerHTML = "";
+    type(i, textLength, actualText);
+}
+
+function type(i, textLength, actualText) {
+    if (i < textLength) {
+        musicPlayer.e.nowPlaying.innerHTML += actualText.charAt(i);
+        i++;
+        setTimeout(function () {
+            type(i, textLength, actualText);
+        }, 10);
+    }
+}
