@@ -22,26 +22,29 @@
                             <use  xlink:href="icons/sprite.svg#icon-previous2"></use>
                         </svg>
                     </button>
-                    <button id="mp__controls-playpause" class="mp__controls-btn">                                <svg class="mp__controls-icon">
+                    <button id="mp__controls-playpause" class="mp__controls-btn">                                
+                        <svg class="mp__controls-icon">
                             <use id="playpauseicon"xlink:href="icons/sprite.svg#icon-play3"></use>
                         </svg>
                     </button>
-                    <button id="mp__controls-next" class="mp__controls-btn">                                <svg class="mp__controls-icon">
+                    <button id="mp__controls-next" class="mp__controls-btn">                                
+                        <svg class="mp__controls-icon">
                             <use xlink:href="icons/sprite.svg#icon-next2"></use>
                         </svg>
                     </button>
                 </div>
             </div>
             <div class="mp__song-duration">
-                <span id="mp__song-duration-start" class="mp__song-duration-start">0:00</span>
-                <div id="mp__song-duration-bar" class="mp__song-duration-bar"></div>
-                <span id="mp__song-duration-end" class="mp__song-duration-end">4:00</span>
+                <span id="mp__song-duration-start" class="mp__song-duration-start">00:00</span>
+                <input type="range" id="mp__song-duration-bar" class="mp__song-duration-bar"></input>
+                <span id="mp__song-duration-end" class="mp__song-duration-end">00:00</span>
             </div>
             <div class="mp__volume">
                 <svg class="mp__volume-icon">
                     <use id="volumeicon" xlink:href="icons/sprite.svg#icon-volume-low"></use>
                 </svg>
                 <input type="range" id="mp__volume-slider" class="mp__volume-slider" value="0" min="0" max="100">
+                <span id="mp__volume-value" class="mp__volume-value"></span>
             </div>
         </div>
         <div class="mp__playlist">

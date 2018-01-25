@@ -15,10 +15,15 @@ let musicPlayer = {
 
         // Slider
         volume: document.getElementById('mp__volume-slider'),
+        volumeValue: document.getElementById("mp__volume-value"),
 
         // Duration
         songStartTime: document.getElementById("mp__song-duration-start"),
+        songProgressBar: document.getElementById("mp__song-duration-bar"),
         songEndTime: document.getElementById("mp__song-duration-end"),
+        
+        // Progress Bar
+
     },
 
     readFile: (callback) => {
@@ -61,10 +66,14 @@ let musicPlayer = {
             songToPlay.volume = musicPlayer.e.volume.value / 100;
 
             musicPlayer.e.currentlyPlaying.push(songToPlay);
-            console.log(songToPlay);
             songToPlay.play();
 
-            // Update Details
+            // Set the range slider min and max to current Time and Duration
+            musicPlayer.e.songProgressBar.min = 0;
+            // musicPlayer.e.songProgressBar.max = musicPlayer.e.currentlyPlaying[0].duration;
+            musicPlayer.e.songProgressBar.max = musicPlayer.e.currentlyPlaying[0].duration;
+
+            // Update 
             musicPlayer.updateDetails();
 
             //Change SVG to Pause
@@ -77,6 +86,13 @@ let musicPlayer = {
             
             // Update song timer
             musicPlayer.e.songStartTime.innerHTML = currentTime;
+
+            // Update the progress bar value 
+            musicPlayer.e.songProgressBar.value = musicPlayer.e.currentlyPlaying[0].currentTime;
+
+            // Logging the Current Time of the Song
+            // console.log("progress: " + musicPlayer.e.songProgressBar.value);
+            // console.log(musicPlayer.e.currentlyPlaying[0].currentTime);
         });
 
         // Check if song has ended if so play the next song
@@ -115,9 +131,9 @@ let musicPlayer = {
     },
 
     addListeners: () => {
-        for (let song of musicPlayer.e.songItems) {
+        for (let i = 0; i < musicPlayer.e.songItems.length; i++) {
             // Add event listener 
-            song.addEventListener("dblclick", (e) => {
+            musicPlayer.e.songItems[i].addEventListener("dblclick", (e) => {
                 musicPlayer.playSong(e.target.innerHTML);
             });
         }
@@ -142,6 +158,11 @@ let musicPlayer = {
             }
         });
 
+        musicPlayer.e.songProgressBar.addEventListener("input", (e) => {
+            musicPlayer.e.currentlyPlaying[0].currentTime = e.target.value;
+            musicPlayer.e.songProgressBar.value = e.target.value;
+        });
+
         musicPlayer.e.next.addEventListener("click", () => {
             musicPlayer.playNextSong();
         });
@@ -149,6 +170,7 @@ let musicPlayer = {
         musicPlayer.e.volume.addEventListener("input", () => {
             if (musicPlayer.e.currentlyPlaying.length != 0) {
                 musicPlayer.e.currentlyPlaying[0].volume = musicPlayer.e.volume.value / 100;
+                musicPlayer.e.volumeValue.innerHTML = musicPlayer.e.volume.value;
                 if (musicPlayer.e.currentlyPlaying[0].volume == 0) {
                     musicPlayer.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-mute");
                 } 
@@ -191,6 +213,9 @@ let musicPlayer = {
 
     init: () => {
         musicPlayer.createButtons();
+        musicPlayer.e.volume.value = 0.5 * 100;
+        musicPlayer.e.songProgressBar.value = 0;
+        musicPlayer.e.volumeValue.innerHTML = musicPlayer.e.volume.value;
     },
 };
 
