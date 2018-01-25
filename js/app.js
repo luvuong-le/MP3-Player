@@ -6,6 +6,10 @@ let musicPlayer = {
 
         nowPlaying: document.getElementById("mp__playing-now"),
 
+        // Options toggle
+        optionCont: document.getElementById("mp__options"),
+        optionToggle: document.getElementById("mp__options-toggle-icon"),
+
         // Controls 
         previous: document.getElementById("mp__controls-previous"),
         playpause: document.getElementById("mp__controls-playpause"),
@@ -21,9 +25,6 @@ let musicPlayer = {
         songStartTime: document.getElementById("mp__song-duration-start"),
         songProgressBar: document.getElementById("mp__song-duration-bar"),
         songEndTime: document.getElementById("mp__song-duration-end"),
-        
-        // Progress Bar
-
     },
 
     readFile: (callback) => {
@@ -186,6 +187,14 @@ let musicPlayer = {
                 if (musicPlayer.e.currentlyPlaying[0].volume > 0.75 && musicPlayer.e.currentlyPlaying[0].volume <= 1) {
                     musicPlayer.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-high");
                 }
+            }
+        });
+
+        musicPlayer.e.optionToggle.addEventListener("click", () => {
+            if (musicPlayer.e.optionCont.style.height != "0px") {
+                musicPlayer.e.optionCont.style.height = "0px";
+            } else {
+                musicPlayer.e.optionCont.style.height = "7rem";
             }
         });
     },

@@ -9,8 +9,22 @@
 
     <?php require 'mp_playlist_get.php' ?>
 </head>
-<body>
+<body></body>
     <div class="mp">
+        <div class="mp__options-toggle">
+            <svg id="mp__options-toggle-icon" class="mp__options-toggle-icon">
+                <use id="playpauseicon"xlink:href="icons/sprite.svg#icon-dots-three-horizontal"></use>
+            </svg>
+        </div>
+        <div id="mp__options" class="mp__options">
+            <a href="#" class="mp__options-upload-btn">Upload</a>
+            <select name="themes" id="theme-options" class="mp__options-theme-select">
+                <option value="">Themes</option>
+                <option value="initial">Normal</option>
+                <option value="blur(5px)">Blur</option>
+                <option value="grayscale(100%)">Grayscale</option>
+            </select>
+        </div>
         <div class="mp__details">
             <img src="http://via.placeholder.com/150x150" alt="Cover">
             <div class="mp__playing">
