@@ -45,7 +45,7 @@ html {
   padding: 1.5rem 0rem; }
   .mp__options {
     width: 100%;
-    height: 7rem;
+    height: 0rem;
     background: dodgerblue;
     transition: all .3s ease;
     overflow: hidden;

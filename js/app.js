@@ -191,8 +191,8 @@ let musicPlayer = {
         });
 
         musicPlayer.e.optionToggle.addEventListener("click", () => {
-            if (musicPlayer.e.optionCont.style.height != "0px") {
-                musicPlayer.e.optionCont.style.height = "0px";
+            if (musicPlayer.e.optionCont.clientHeight != 0) {
+                musicPlayer.e.optionCont.style.height = "0rem";
             } else {
                 musicPlayer.e.optionCont.style.height = "7rem";
             }

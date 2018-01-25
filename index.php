@@ -20,9 +20,9 @@
             <a href="#" class="mp__options-upload-btn">Upload</a>
             <select name="themes" id="theme-options" class="mp__options-theme-select">
                 <option value="">Themes</option>
-                <option value="initial">Normal</option>
-                <option value="blur(5px)">Blur</option>
-                <option value="grayscale(100%)">Grayscale</option>
+                <option value="">Materialistic</option>
+                <option value="">Light</option>
+                <option value="">Dark</option>
             </select>
         </div>
         <div class="mp__details">
