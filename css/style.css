@@ -42,7 +42,9 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
-  padding: 1.5rem 0rem; }
+  padding: 1.5rem 0rem;
+  transition: all 1.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  overflow: hidden; }
   .mp__options {
     width: 100%;
     height: 0rem;
@@ -50,6 +52,9 @@ html {
     transition: all .3s ease;
     overflow: hidden;
     display: flex; }
+    .mp__options > h3 {
+      align-self: center;
+      padding: .5rem; }
     .mp__options-toggle {
       width: 100%;
       text-align: right;
@@ -71,6 +76,8 @@ html {
       border: 1px solid #fff;
       text-decoration: none;
       margin-left: 1rem; }
+    .mp__options-theme-select > option {
+      background: #000; }
     .mp__options-upload-btn:hover {
       background: #fff;
       color: #000;
@@ -164,9 +171,10 @@ html {
       fill: #fff; }
   .mp__playlist {
     height: 60%;
-    padding: 3rem; }
+    padding: 3rem;
+    padding-bottom: 4rem; }
     .mp__playlist-items {
-      height: 50rem;
+      height: 100%;
       width: 100%;
       overflow: auto;
       padding-right: 1rem; }
@@ -242,6 +250,8 @@ input[type="range"]::-ms-tooltip {
 
 .mp--dark {
   background-color: red; }
+  .mp--dark .mp__playlist {
+    background-color: orangered; }
 
 .mp--light {
   background-color: blue; }

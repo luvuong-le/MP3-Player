@@ -5,6 +5,7 @@
         </svg>
     </div>
     <div id="mp__options" class="mp__options">
+        <h3>Options</h3>
         <a href="#" class="mp__options-upload-btn">Upload</a>
         <select name="themes" id="mp__options-theme-options" class="mp__options-theme-select">
             <option value="default" selected>Default</option>
