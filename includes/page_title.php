@@ -11,4 +11,8 @@
             $title = "Error";
             break;
     }
+
+    function title($title) {
+        return $title;
+    }
 ?>

@@ -1,4 +1,4 @@
-<div class="mp">
+<div id="mp" class="mp">
     <div class="mp__options-toggle">
         <svg id="mp__options-toggle-icon" class="mp__options-toggle-icon">
             <use xlink:href="icons/sprite.svg#icon-dots-three-horizontal"></use>
@@ -6,11 +6,11 @@
     </div>
     <div id="mp__options" class="mp__options">
         <a href="#" class="mp__options-upload-btn">Upload</a>
-        <select name="themes" id="theme-options" class="mp__options-theme-select">
-            <option value="">Themes</option>
-            <option value="">Materialistic</option>
-            <option value="">Light</option>
-            <option value="">Dark</option>
+        <select name="themes" id="mp__options-theme-options" class="mp__options-theme-select">
+            <option value="default" selected>Default</option>
+            <option value="materialistic">Materialistic</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
         </select>
     </div>
     <div class="mp__details">
