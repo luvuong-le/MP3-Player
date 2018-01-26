@@ -1,4 +1,8 @@
 let musicPlayer = {
+
+    typeWriter: null,
+    retype: null,
+
     e: {
         playlistItems: document.getElementById("mp__playlist-items"),
         songItems: document.getElementsByClassName("mp__playlist-btn"),
@@ -45,7 +49,6 @@ let musicPlayer = {
     createButtons: () => {
         musicPlayer.readFile((response) => {
             let jsondata = JSON.parse(response);
-            console.log(jsondata);
 
             for(let mp of jsondata) {
                 let newSongItem = document.createElement("button");
@@ -79,7 +82,7 @@ let musicPlayer = {
             musicPlayer.updateDetails();
 
             //Change SVG to Pause
-            musicPlayer.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2")
+            musicPlayer.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2");
         });
 
         songToPlay.addEventListener("timeupdate", () => {
@@ -90,7 +93,8 @@ let musicPlayer = {
             musicPlayer.e.songStartTime.innerHTML = currentTime;
 
             // Update the progress bar value 
-            musicPlayer.e.songProgressBar.value = musicPlayer.e.currentlyPlaying[0].currentTime;
+            musicPlayer.e.songProgressBar.value = (musicPlayer.e.currentlyPlaying[0] == null) 
+                                                  ? 0 : musicPlayer.e.currentlyPlaying[0].currentTime;
 
             // Logging the Current Time of the Song
             // console.log("progress: " + musicPlayer.e.songProgressBar.value);
@@ -161,7 +165,6 @@ let musicPlayer = {
         }
 
         window.addEventListener("keypress", (e) => {
-            console.log(e.keyCode);
             const LEFT = 37, RIGHT = 39, SPACE = 0;
             switch (e.keyCode) {
                 case LEFT: 
@@ -235,13 +238,25 @@ let musicPlayer = {
          }
     },
 
+    clearTyping: () => {
+        clearInterval(musicPlayer.retype);
+    },
+
     updateDetails: () => {
         // Update Title Name
         //musicPlayer.e.nowPlaying.innerHTML = musicPlayer.e.currentlyPlaying[0].innerHTML;
         initTypeWriter(musicPlayer.e.currentlyPlaying[0]);
-        setInterval(() => {
-            initTypeWriter(musicPlayer.e.currentlyPlaying[0]);
-        }, 60000);
+
+        if (musicPlayer.retype == null) {
+            musicPlayer.retype = setInterval(() => {
+                initTypeWriter(musicPlayer.e.currentlyPlaying[0]);
+            }, 60000); 
+        } else {
+            musicPlayer.clearTyping(musicPlayer.retype);
+            musicPlayer.retype = setInterval(() => {
+                initTypeWriter(musicPlayer.e.currentlyPlaying[0]);
+            }, 60000); 
+        }
         
         // Update Song Duration
         musicPlayer.e.songEndTime.innerHTML = moment.utc(musicPlayer.e.currentlyPlaying[0].duration * 1000).format("mm:ss");
@@ -263,6 +278,9 @@ function initTypeWriter(songName) {
     const textLength = songName.innerHTML.length;
     const actualText = songName.innerHTML;
     musicPlayer.e.nowPlaying.innerHTML = "";
+
+    // Clear Timeout before writing new text 
+    if (musicPlayer.typeWriter != null) { clearTimeout(musicPlayer.typeWriter); }
     type(i, textLength, actualText);
 }
 
@@ -270,7 +288,7 @@ function type(i, textLength, actualText) {
     if (i < textLength) {
         musicPlayer.e.nowPlaying.innerHTML += actualText.charAt(i);
         i++;
-        setTimeout(function () {
+        musicPlayer.typeWriter = setTimeout(function () {
             type(i, textLength, actualText);
         }, 10);
     }
