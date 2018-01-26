@@ -71,6 +71,13 @@ html {
       border: 1px solid #fff;
       text-decoration: none;
       margin-left: 1rem; }
+      .mp__options-upload-btn:hover, .mp__options-theme-select:hover {
+        background: #fff;
+        color: #000;
+        border: 1px solid #000;
+        transform: translateY(-0.5rem); }
+      .mp__options-upload-btn:active, .mp__options-theme-select:active {
+        transform: translateY(1rem); }
   .mp__details {
     display: grid;
     grid-template-rows: max-content 4rem min-content;
@@ -159,7 +166,7 @@ html {
     height: 60%;
     padding: 3rem; }
     .mp__playlist-items {
-      height: 100%;
+      height: 50rem;
       width: 100%;
       overflow: auto;
       padding-right: 1rem; }

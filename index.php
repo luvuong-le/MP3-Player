@@ -9,11 +9,11 @@
 
     <?php require 'mp_playlist_get.php' ?>
 </head>
-<body></body>
+<body>
     <div class="mp">
         <div class="mp__options-toggle">
             <svg id="mp__options-toggle-icon" class="mp__options-toggle-icon">
-                <use id="playpauseicon"xlink:href="icons/sprite.svg#icon-dots-three-horizontal"></use>
+                <use xlink:href="icons/sprite.svg#icon-dots-three-horizontal"></use>
             </svg>
         </div>
         <div id="mp__options" class="mp__options">
