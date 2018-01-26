@@ -10,7 +10,7 @@ let musicPlayer = {
         optionCont: document.getElementById("mp__options"),
         optionToggle: document.getElementById("mp__options-toggle-icon"),
 
-        // Controls 
+        // Controls  
         previous: document.getElementById("mp__controls-previous"),
         playpause: document.getElementById("mp__controls-playpause"),
         next: document.getElementById("mp__controls-next"),
@@ -111,10 +111,30 @@ let musicPlayer = {
         musicPlayer.playSong(songName);
     },
 
+    playPreviousSong: () => {
+        let songIndex = musicPlayer.findIndex() == 0 ? musicPlayer.e.songItems.length - 1 : musicPlayer.findIndex() - 1;
+
+        let songName = musicPlayer.e.songItems[songIndex].innerHTML;
+
+        musicPlayer.playSong(songName);
+    },
+
     resumeSong: () => {
         musicPlayer.e.currentlyPlaying[0].play();
         //Change SVG to Pause
         musicPlayer.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2")
+    },
+
+    playToggle: () => {
+        if (musicPlayer.e.currentlyPlaying.length != 0) {
+            if (musicPlayer.e.currentlyPlaying[0].paused == true) {
+                musicPlayer.resumeSong();
+            } else {
+                musicPlayer.pauseSong();
+            }
+        } else {
+            musicPlayer.playSong(musicPlayer.e.songItems[0].innerHTML);
+        }
     },
 
     pauseSong: () => {
@@ -140,24 +160,30 @@ let musicPlayer = {
             });
         }
 
+        window.addEventListener("keypress", (e) => {
+            console.log(e.keyCode);
+            const LEFT = 37, RIGHT = 39, SPACE = 0;
+            switch (e.keyCode) {
+                case LEFT: 
+                    musicPlayer.playPreviousSong();
+                    break;
+                case RIGHT: 
+                    musicPlayer.playNextSong();
+                    break;
+                case SPACE: 
+                    musicPlayer.playToggle();
+                    break;
+                default:
+                    console.log("error");
+            }
+        });
+
         musicPlayer.e.previous.addEventListener("click", () => {
-            let songIndex = musicPlayer.findIndex() == 0 ? musicPlayer.e.songItems.length - 1 : musicPlayer.findIndex() - 1;
-
-            let songName = musicPlayer.e.songItems[songIndex].innerHTML;
-
-            musicPlayer.playSong(songName);
+            musicPlayer.playPreviousSong();
         });
 
         musicPlayer.e.playpause.addEventListener("click", () => {
-            if (musicPlayer.e.currentlyPlaying.length != 0) {
-                if (musicPlayer.e.currentlyPlaying[0].paused == true) {
-                    musicPlayer.resumeSong();
-                } else {
-                    musicPlayer.pauseSong();
-                }
-            } else {
-                musicPlayer.playSong(musicPlayer.e.songItems[0].innerHTML);
-            }
+            musicPlayer.playToggle();
         });
 
         musicPlayer.e.songProgressBar.addEventListener("input", (e) => {
