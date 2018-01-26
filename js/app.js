@@ -45,6 +45,7 @@ let musicPlayer = {
     createButtons: () => {
         musicPlayer.readFile((response) => {
             let jsondata = JSON.parse(response);
+            console.log(jsondata);
 
             for(let mp of jsondata) {
                 let newSongItem = document.createElement("button");
