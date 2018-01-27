@@ -189,8 +189,10 @@ html {
       background: transparent;
       color: #fff;
       border: 1px solid #fff; }
+      .mp__playlist-btn--selected {
+        background: green; }
       .mp__playlist-btn:hover {
-        background: #fff;
+        background: rgba(255, 255, 255, 0.877);
         color: #000;
         border: 1px solid #000;
         transform: translateY(-0.5rem); }

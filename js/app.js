@@ -103,6 +103,7 @@ let musicPlayer = {
 
         // Check if song has ended if so play the next song
         songToPlay.addEventListener("ended", () => {
+            musicPlayer.e.currentlyPlaying[0].classList.remove("mp__playlist-btn--selected");
             musicPlayer.playNextSong();
         });
     },
@@ -112,6 +113,8 @@ let musicPlayer = {
 
         let songName = musicPlayer.e.songItems[songIndex].innerHTML;
 
+        musicPlayer.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
+
         musicPlayer.playSong(songName);
     },
 
@@ -119,6 +122,8 @@ let musicPlayer = {
         let songIndex = musicPlayer.findIndex() == 0 ? musicPlayer.e.songItems.length - 1 : musicPlayer.findIndex() - 1;
 
         let songName = musicPlayer.e.songItems[songIndex].innerHTML;
+
+        musicPlayer.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
 
         musicPlayer.playSong(songName);
     },
@@ -137,6 +142,7 @@ let musicPlayer = {
                 musicPlayer.pauseSong();
             }
         } else {
+            musicPlayer.e.songItems[0].classList.add("mp__playlist-btn--selected");
             musicPlayer.playSong(musicPlayer.e.songItems[0].innerHTML);
         }
     },
@@ -160,6 +166,8 @@ let musicPlayer = {
         for (let i = 0; i < musicPlayer.e.songItems.length; i++) {
             // Add event listener 
             musicPlayer.e.songItems[i].addEventListener("dblclick", (e) => {
+                musicPlayer.removeSelected();
+                musicPlayer.e.songItems[i].classList.add("mp__playlist-btn--selected");
                 musicPlayer.playSong(e.target.innerHTML);
             });
         }
@@ -182,6 +190,7 @@ let musicPlayer = {
         });
 
         musicPlayer.e.previous.addEventListener("click", () => {
+            musicPlayer.removeSelected();
             musicPlayer.playPreviousSong();
         });
 
@@ -195,6 +204,7 @@ let musicPlayer = {
         });
 
         musicPlayer.e.next.addEventListener("click", () => {
+            musicPlayer.removeSelected();
             musicPlayer.playNextSong();
         });
 
@@ -236,6 +246,12 @@ let musicPlayer = {
                  return i;
              } 
          }
+    },
+
+    removeSelected: () => {
+        for (let i = 0; i < musicPlayer.e.songItems.length; i++) {
+            musicPlayer.e.songItems[i].classList.remove("mp__playlist-btn--selected");
+        }
     },
 
     clearTyping: () => {
