@@ -4,20 +4,20 @@ let themes = {
         mpCont: document.getElementById("mp"),
     },
     
-    themeSelectListener: (e) => {
-        themeElements().themesOptions.addEventListener("change", (e) => {
-            switch(themeElements().themesOptions.value) {
+    themeSelectListener: function(e) {
+        this.e.themesOptions.addEventListener("change", (e) => {
+            switch(this.e.themesOptions.value) {
                 case "default": 
-                    themes.updateTheme("mp");
+                    this.updateTheme("mp");
                     break;
                 case "dark": 
-                    themes.updateTheme("mp--dark");
+                    this.updateTheme("mp--dark");
                     break;
                 case "light": 
-                    themes.updateTheme("mp--light");
+                    this.updateTheme("mp--light");
                     break;
                 case "materialistic":
-                    themes.updateTheme("mp--materialistic");
+                    this.updateTheme("mp--materialistic");
                     break;
                 default: 
                     console.log("error");
@@ -25,30 +25,26 @@ let themes = {
         });
     },
 
-    updateTheme: (theme) => {
-        themes.removeAllClasses();
-        themes.changeTheme(theme);
+    updateTheme: function(theme) {
+        this.removeAllClasses();
+        this.changeTheme(theme);
     },
 
-    removeAllClasses: () => {
-        while (themeElements().mpCont.classList.length > 0) {
-            themeElements().mpCont.classList.remove(themeElements().mpCont.classList.item(0));
+    removeAllClasses: function() {
+        while (this.e.mpCont.classList.length > 0) {
+            this.e.mpCont.classList.remove(this.e.mpCont.classList.item(0));
         }
     },
 
-    changeTheme: (themeName) => {
-        themeElements().mpCont.classList.add("mp");
-        themeElements().mpCont.classList.add(themeName);
+    changeTheme: function(themeName) {
+        this.e.mpCont.classList.add("mp");
+        this.e.mpCont.classList.add(themeName);
     },
 
-    init: () => {
-        themes.themeSelectListener();
-        themeElements().themesOptions.value = themeElements().themesOptions[0].value;
+    init: function() {
+        this.themeSelectListener();
+        this.e.themesOptions.value = this.e.themesOptions[0].value;
     }
 };
 
 themes.init();
-
-function themeElements() {
-    return themes.e;
-}

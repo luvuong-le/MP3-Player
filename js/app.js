@@ -31,7 +31,7 @@ let musicPlayer = {
         songEndTime: document.getElementById("mp__song-duration-end"),
     },
 
-    readFile: (callback) => {
+    readFile: function(callback) {
         let httpreq = new XMLHttpRequest();
         httpreq.overrideMimeType('application/json');
 
@@ -46,8 +46,8 @@ let musicPlayer = {
         httpreq.send();
     },
 
-    createButtons: () => {
-        musicPlayer.readFile((response) => {
+    createButtons: function() {
+        this.readFile((response) => {
             let jsondata = JSON.parse(response);
 
             for(let mp of jsondata) {
@@ -55,14 +55,14 @@ let musicPlayer = {
                 newSongItem.className = "mp__playlist-btn";
                 newSongItem.innerHTML = mp.name;
 
-                musicPlayer.e.playlistItems.appendChild(newSongItem);
+                this.e.playlistItems.appendChild(newSongItem);
             }
-            musicPlayer.addListeners();
+            this.addListeners();
         });
     },
 
-    playSong: (songName) => {
-        musicPlayer.stopAllSongs();
+    playSong: function(songName) {
+        this.stopAllSongs();
         let songToPlay = new Audio(`music/${songName}`);
         songToPlay.innerHTML = songName;
 
@@ -70,19 +70,19 @@ let musicPlayer = {
             // Set the initial volume of the song based on where the slider is 
             songToPlay.volume = musicPlayer.e.volume.value / 100;
 
-            musicPlayer.e.currentlyPlaying.push(songToPlay);
+            this.e.currentlyPlaying.push(songToPlay);
             songToPlay.play();
 
             // Set the range slider min and max to current Time and Duration
-            musicPlayer.e.songProgressBar.min = 0;
-            // musicPlayer.e.songProgressBar.max = musicPlayer.e.currentlyPlaying[0].duration;
-            musicPlayer.e.songProgressBar.max = musicPlayer.e.currentlyPlaying[0].duration;
+            this.e.songProgressBar.min = 0;
+            // this.e.songProgressBar.max = this.e.currentlyPlaying[0].duration;
+            this.e.songProgressBar.max = this.e.currentlyPlaying[0].duration;
 
             // Update 
-            musicPlayer.updateDetails();
+            this.updateDetails();
 
             //Change SVG to Pause
-            musicPlayer.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2");
+            this.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2");
         });
 
         songToPlay.addEventListener("timeupdate", () => {
@@ -90,11 +90,11 @@ let musicPlayer = {
             let currentTime = moment.utc(time).format("mm:ss");
             
             // Update song timer
-            musicPlayer.e.songStartTime.innerHTML = currentTime;
+            this.e.songStartTime.innerHTML = currentTime;
 
             // Update the progress bar value 
-            musicPlayer.e.songProgressBar.value = (musicPlayer.e.currentlyPlaying[0] == null) 
-                                                  ? 0 : musicPlayer.e.currentlyPlaying[0].currentTime;
+            this.e.songProgressBar.value = (this.e.currentlyPlaying[0] == null) 
+                                                  ? 0 : this.e.currentlyPlaying[0].currentTime;
 
             // Logging the Current Time of the Song
             // console.log("progress: " + musicPlayer.e.songProgressBar.value);
@@ -103,72 +103,72 @@ let musicPlayer = {
 
         // Check if song has ended if so play the next song
         songToPlay.addEventListener("ended", () => {
-            musicPlayer.e.currentlyPlaying[0].classList.remove("mp__playlist-btn--selected");
-            musicPlayer.playNextSong();
+            this.removeSelected();
+            this.playNextSong();
         });
     },
 
-    playNextSong: () => {
-        let songIndex = musicPlayer.findIndex() == musicPlayer.e.songItems.length - 1 ? 0 : musicPlayer.findIndex() + 1;
+    playNextSong: function() {
+        let songIndex = musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : this.findIndex() + 1;
 
-        let songName = musicPlayer.e.songItems[songIndex].innerHTML;
+        let songName = this.e.songItems[songIndex].innerHTML;
 
-        musicPlayer.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
+        this.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
 
-        musicPlayer.playSong(songName);
+        this.playSong(songName);
     },
 
-    playPreviousSong: () => {
-        let songIndex = musicPlayer.findIndex() == 0 ? musicPlayer.e.songItems.length - 1 : musicPlayer.findIndex() - 1;
+    playPreviousSong: function() {
+        let songIndex = this.findIndex() == 0 ? this.e.songItems.length - 1 : this.findIndex() - 1;
 
-        let songName = musicPlayer.e.songItems[songIndex].innerHTML;
+        let songName = this.e.songItems[songIndex].innerHTML;
 
-        musicPlayer.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
+        this.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
 
-        musicPlayer.playSong(songName);
+        this.playSong(songName);
     },
 
-    resumeSong: () => {
-        musicPlayer.e.currentlyPlaying[0].play();
+    resumeSong: function() {
+        this.e.currentlyPlaying[0].play();
         //Change SVG to Pause
-        musicPlayer.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2")
+        this.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2")
     },
 
-    playToggle: () => {
-        if (musicPlayer.e.currentlyPlaying.length != 0) {
-            if (musicPlayer.e.currentlyPlaying[0].paused == true) {
-                musicPlayer.resumeSong();
+    playToggle: function() {
+        if (this.e.currentlyPlaying.length != 0) {
+            if (this.e.currentlyPlaying[0].paused == true) {
+                this.resumeSong();
             } else {
-                musicPlayer.pauseSong();
+                this.pauseSong();
             }
         } else {
-            musicPlayer.e.songItems[0].classList.add("mp__playlist-btn--selected");
-            musicPlayer.playSong(musicPlayer.e.songItems[0].innerHTML);
+            this.e.songItems[0].classList.add("mp__playlist-btn--selected");
+            this.playSong(this.e.songItems[0].innerHTML);
         }
     },
 
-    pauseSong: () => {
-        if (musicPlayer.e.currentlyPlaying.length != 0) {
-            musicPlayer.e.currentlyPlaying[0].pause();
+    pauseSong: function() {
+        if (this.e.currentlyPlaying.length != 0) {
+            this.e.currentlyPlaying[0].pause();
             //Change SVG to Play
-            musicPlayer.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-play3");
+            this.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-play3");
         }
     },
 
-    stopAllSongs: () => {
-        if (musicPlayer.e.currentlyPlaying.length != 0) {
-            musicPlayer.e.currentlyPlaying[0].pause();
-            musicPlayer.e.currentlyPlaying = [];
+    stopAllSongs: function() {
+        if (this.e.currentlyPlaying.length != 0) {
+            this.e.currentlyPlaying[0].pause();
+            this.e.currentlyPlaying = [];
         }
     },
 
-    addListeners: () => {
-        for (let i = 0; i < musicPlayer.e.songItems.length; i++) {
+    addListeners: function() {
+        for (let i = 0; i < this.e.songItems.length; i++) {
             // Add event listener 
-            musicPlayer.e.songItems[i].addEventListener("dblclick", (e) => {
-                musicPlayer.removeSelected();
-                musicPlayer.e.songItems[i].classList.add("mp__playlist-btn--selected");
-                musicPlayer.playSong(e.target.innerHTML);
+            this.e.songItems[i].addEventListener("dblclick", (e) => {
+                this.removeSelected();
+                this.e.songItems[i].classList.add("mp__playlist-btn--selected");
+                this.playSong(e.target.innerHTML);
             });
         }
 
@@ -176,113 +176,111 @@ let musicPlayer = {
             const LEFT = 37, RIGHT = 39, SPACE = 0;
             switch (e.keyCode) {
                 case LEFT: 
-                    musicPlayer.playPreviousSong();
+                    this.playPreviousSong();
                     break;
                 case RIGHT: 
-                    musicPlayer.playNextSong();
+                    this.playNextSong();
                     break;
                 case SPACE: 
-                    musicPlayer.playToggle();
+                    this.playToggle();
                     break;
                 default:
                     console.log("error");
             }
         });
 
-        musicPlayer.e.previous.addEventListener("click", () => {
-            musicPlayer.removeSelected();
-            musicPlayer.playPreviousSong();
+        this.e.previous.addEventListener("click", () => {
+            this.removeSelected();
+            this.playPreviousSong();
         });
 
-        musicPlayer.e.playpause.addEventListener("click", () => {
-            musicPlayer.playToggle();
+        this.e.playpause.addEventListener("click", () => {
+            this.playToggle();
         });
 
-        musicPlayer.e.songProgressBar.addEventListener("input", (e) => {
-            musicPlayer.e.currentlyPlaying[0].currentTime = e.target.value;
-            musicPlayer.e.songProgressBar.value = e.target.value;
+        this.e.songProgressBar.addEventListener("input", (e) => {
+            this.e.currentlyPlaying[0].currentTime = e.target.value;
+            this.e.songProgressBar.value = e.target.value;
         });
 
-        musicPlayer.e.next.addEventListener("click", () => {
-            musicPlayer.removeSelected();
-            musicPlayer.playNextSong();
+        this.e.next.addEventListener("click", () => {
+            this.removeSelected();
+            this.playNextSong();
         });
 
-        musicPlayer.e.volume.addEventListener("input", () => {
-            if (musicPlayer.e.currentlyPlaying.length != 0) {
-                musicPlayer.e.currentlyPlaying[0].volume = musicPlayer.e.volume.value / 100;
-                musicPlayer.e.volumeValue.innerHTML = musicPlayer.e.volume.value;
-                if (musicPlayer.e.currentlyPlaying[0].volume == 0) {
-                    musicPlayer.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-mute");
+        this.e.volume.addEventListener("input", () => {
+            if (this.e.currentlyPlaying.length != 0) {
+                this.e.currentlyPlaying[0].volume = this.e.volume.value / 100;
+                this.e.volumeValue.innerHTML = this.e.volume.value;
+                if (this.e.currentlyPlaying[0].volume == 0) {
+                    this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-mute");
                 } 
 
-                if (musicPlayer.e.currentlyPlaying[0].volume > 0 && musicPlayer.e.currentlyPlaying[0].volume < 0.35) {
-                    musicPlayer.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-low");
+                if (this.e.currentlyPlaying[0].volume > 0 && this.e.currentlyPlaying[0].volume < 0.35) {
+                    this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-low");
                 }
 
-                if (musicPlayer.e.currentlyPlaying[0].volume > 0.35 && musicPlayer.e.currentlyPlaying[0].volume < 0.75) {
-                    musicPlayer.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-medium");
+                if (this.e.currentlyPlaying[0].volume > 0.35 && this.e.currentlyPlaying[0].volume < 0.75) {
+                    this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-medium");
                 }
 
-                if (musicPlayer.e.currentlyPlaying[0].volume > 0.75 && musicPlayer.e.currentlyPlaying[0].volume <= 1) {
-                    musicPlayer.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-high");
+                if (this.e.currentlyPlaying[0].volume > 0.75 && this.e.currentlyPlaying[0].volume <= 1) {
+                    this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-high");
                 }
             }
         });
 
-        musicPlayer.e.optionToggle.addEventListener("click", () => {
-            if (musicPlayer.e.optionCont.clientHeight != 0) {
-                musicPlayer.e.optionCont.style.height = "0rem";
+        this.e.optionToggle.addEventListener("click", () => {
+            if (this.e.optionCont.clientHeight != 0) {
+                this.e.optionCont.style.height = "0rem";
             } else {
-                musicPlayer.e.optionCont.style.height = "7rem";
+                this.e.optionCont.style.height = "7rem";
             }
         });
     },
 
-    findIndex: () => {
-         for (let i = 0; i < musicPlayer.e.songItems.length; i++) {
+    findIndex: function() {
+         for (let i = 0; i < this.e.songItems.length; i++) {
              // Add event listener 
-             if (musicPlayer.e.songItems[i].innerHTML == musicPlayer.e.currentlyPlaying[0].innerHTML) {
+             if (this.e.songItems[i].innerHTML == this.e.currentlyPlaying[0].innerHTML) {
                  return i;
              } 
          }
     },
 
-    removeSelected: () => {
-        for (let i = 0; i < musicPlayer.e.songItems.length; i++) {
-            musicPlayer.e.songItems[i].classList.remove("mp__playlist-btn--selected");
+    removeSelected: function() {
+        for (let i = 0; i < this.e.songItems.length; i++) {
+            this.e.songItems[i].classList.remove("mp__playlist-btn--selected");
         }
     },
 
-    clearTyping: () => {
-        clearInterval(musicPlayer.retype);
+    clearTyping: function() {
+        clearInterval(this.retype);
     },
 
-    updateDetails: () => {
-        // Update Title Name
-        //musicPlayer.e.nowPlaying.innerHTML = musicPlayer.e.currentlyPlaying[0].innerHTML;
-        initTypeWriter(musicPlayer.e.currentlyPlaying[0]);
+    updateDetails: function() {
+        initTypeWriter(this.e.currentlyPlaying[0]);
 
-        if (musicPlayer.retype == null) {
-            musicPlayer.retype = setInterval(() => {
-                initTypeWriter(musicPlayer.e.currentlyPlaying[0]);
+        if (this.retype == null) {
+            this.retype = setInterval(() => {
+                initTypeWriter(this.e.currentlyPlaying[0]);
             }, 60000); 
         } else {
-            musicPlayer.clearTyping(musicPlayer.retype);
-            musicPlayer.retype = setInterval(() => {
-                initTypeWriter(musicPlayer.e.currentlyPlaying[0]);
+            this.clearTyping(this.retype);
+            this.retype = setInterval(() => {
+                initTypeWriter(this.e.currentlyPlaying[0]);
             }, 60000); 
         }
         
         // Update Song Duration
-        musicPlayer.e.songEndTime.innerHTML = moment.utc(musicPlayer.e.currentlyPlaying[0].duration * 1000).format("mm:ss");
+        this.e.songEndTime.innerHTML = moment.utc(musicPlayer.e.currentlyPlaying[0].duration * 1000).format("mm:ss");
     },
 
-    init: () => {
-        musicPlayer.createButtons();
-        musicPlayer.e.volume.value = 0.5 * 100;
-        musicPlayer.e.songProgressBar.value = 0;
-        musicPlayer.e.volumeValue.innerHTML = musicPlayer.e.volume.value;
+    init: function() {
+        this.createButtons();
+        this.e.volume.value = 0.5 * 100;
+        this.e.songProgressBar.value = 0;
+        this.e.volumeValue.innerHTML = this.e.volume.value;
     },
 };
 
