@@ -1,4 +1,4 @@
-<div id="mp" class="mp">
+<div id="mp" class="mp mp--black-red">
     <div class="mp__options-toggle">
         <svg id="mp__options-toggle-icon" class="mp__options-toggle-icon">
             <use xlink:href="icons/sprite.svg#icon-dots-three-horizontal"></use>
@@ -12,6 +12,7 @@
             <option value="materialistic">Materialistic</option>
             <option value="light">Light</option>
             <option value="dark">Dark</option>
+            <option value="black-red">Black and Red</option>
         </select>
     </div>
     <div class="mp__details">

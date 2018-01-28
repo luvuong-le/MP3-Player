@@ -19,6 +19,9 @@ let themes = {
                 case "materialistic":
                     this.updateTheme("mp--materialistic");
                     break;
+                case "black-red":
+                    this.updateTheme("mp--black-red");
+                    break;
                 default: 
                     console.log("error");
             }
