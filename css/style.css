@@ -122,11 +122,14 @@ html {
         border: 0.15rem solid #567da5;
         transform: translateY(-0.2rem); }
       .mp__controls-btn:active {
-        transform: translateY(0.5rem); }
+        transform: translateY(0.2rem); }
     .mp__controls-icon {
       width: 100%;
       height: 100%;
       fill: #000; }
+    .mp__controls-check {
+      opacity: 0;
+      visibility: hidden; }
   .mp__song-duration {
     grid-column: 1 / -1;
     display: grid;
@@ -193,7 +196,7 @@ html {
       color: #fff;
       border: 1px solid #fff; }
       .mp__playlist-btn--selected {
-        background: green; }
+        background: #567da5; }
       .mp__playlist-btn:hover {
         background: rgba(255, 255, 255, 0.877);
         color: #000;

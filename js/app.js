@@ -2,6 +2,10 @@ let musicPlayer = {
 
     typeWriter: null,
     retype: null,
+    speedSkip: null,
+    speedRewind: null,
+    mousedownFired: null,
+    timeOutPress: null,
 
     e: {
         playlistItems: document.getElementById("mp__playlist-items"),
@@ -20,6 +24,12 @@ let musicPlayer = {
         next: document.getElementById("mp__controls-next"),
         playpauseicon: document.getElementById("playpauseicon"),
         volumeicon: document.getElementById("volumeicon"),
+
+        // Shuffle and Repeat Button and Checkboxes
+        repeatBtn: document.getElementById("mp__controls-repeat"),
+        repeatCheckbox: document.getElementById("mp__controls-check-repeat"),
+        shuffleBtn: document.getElementById("mp__controls-shuffle"),
+        shuffleCheckbox: document.getElementById("mp__controls-check-shuffle"),
 
         // Slider
         volume: document.getElementById('mp__volume-slider'),
@@ -103,13 +113,20 @@ let musicPlayer = {
 
         // Check if song has ended if so play the next song
         songToPlay.addEventListener("ended", () => {
-            this.removeSelected();
-            this.playNextSong();
+            if (this.e.repeatCheckbox.checked == true) {
+                this.e.currentlyPlaying[0].play();
+            } else {
+                this.removeSelected();
+                this.playNextSong();
+            }
         });
     },
 
     playNextSong: function() {
-        let songIndex = musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : this.findIndex() + 1;
+        let songIndex = (this.e.shuffleCheckbox.checked == true) ?  Math.floor(Math.random() * this.e.songItems.length) 
+        : musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : this.findIndex() + 1;
+        
+        //let songIndex = ;
 
         let songName = this.e.songItems[songIndex].innerHTML;
 
@@ -119,8 +136,9 @@ let musicPlayer = {
     },
 
     playPreviousSong: function() {
-        let songIndex = this.findIndex() == 0 ? this.e.songItems.length - 1 : this.findIndex() - 1;
-
+       let songIndex = (this.e.shuffleCheckbox.checked == true) ?  Math.floor(Math.random() * this.e.songItems.length) 
+        : musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : this.findIndex() - 1;
+        
         let songName = this.e.songItems[songIndex].innerHTML;
 
         this.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
@@ -165,7 +183,7 @@ let musicPlayer = {
     addListeners: function() {
         for (let i = 0; i < this.e.songItems.length; i++) {
             // Add event listener 
-            this.e.songItems[i].addEventListener("dblclick", (e) => {
+            this.e.songItems[i].addEventListener("click", (e) => {
                 this.removeSelected();
                 this.e.songItems[i].classList.add("mp__playlist-btn--selected");
                 this.playSong(e.target.innerHTML);
@@ -189,11 +207,6 @@ let musicPlayer = {
             }
         });
 
-        this.e.previous.addEventListener("click", () => {
-            this.removeSelected();
-            this.playPreviousSong();
-        });
-
         this.e.playpause.addEventListener("click", () => {
             this.playToggle();
         });
@@ -203,9 +216,85 @@ let musicPlayer = {
             this.e.songProgressBar.value = e.target.value;
         });
 
-        this.e.next.addEventListener("click", () => {
-            this.removeSelected();
-            this.playNextSong();
+        this.e.next.addEventListener("click", (e) => {
+            // Clear time out press to determine click or not
+            clearTimeout(this.timeOutPress);
+            clearInterval(this.speedSkip);
+            if (this.mousedownFired) {
+                this.mousedownFired = false;
+            } else {
+                this.removeSelected();
+                this.playNextSong();
+            }
+        });
+
+        this.e.next.addEventListener("mousedown", () => {
+            this.timeOutPress = setTimeout(() => {
+                this.mousedownFired = true;
+                this.e.currentlyPlaying[0].pause();
+                this.speedSkip = setInterval(() => {
+                    this.e.currentlyPlaying[0].currentTime++;
+                    this.e.songProgressBar.value = this.e.currentlyPlaying[0].currentTime;
+                }, 30);
+                this.e.currentlyPlaying[0].play();
+            }, 500);
+        });
+
+        this.e.next.addEventListener("mouseout", () => {
+            clearTimeout(this.timeOutPress);
+            clearInterval(this.speedSkip); 
+        });
+
+        this.e.previous.addEventListener("mouseout", () => {
+            clearTimeout(this.timeOutPress);
+            clearInterval(this.speedRewind);
+        });
+
+        this.e.previous.addEventListener("click", (e) => {
+            // Clear time out press to determine click or not
+            clearTimeout(this.timeOutPress);
+            clearInterval(this.speedRewind);
+            if (this.mousedownFired) {
+                this.mousedownFired = false;
+            } else {
+                this.removeSelected();
+                this.playPreviousSong();
+            }
+        });
+
+        this.e.previous.addEventListener("mousedown", () => {
+            this.timeOutPress = setTimeout(() => {
+                this.mousedownFired = true;
+                this.e.currentlyPlaying[0].pause();
+                this.speedRewind = setInterval(() => {
+                    this.e.currentlyPlaying[0].currentTime--;
+                    this.e.songProgressBar.value = this.e.currentlyPlaying[0].currentTime;
+                }, 30);
+
+                this.e.currentlyPlaying[0].play();
+            }, 500);
+        });
+
+        // Shuffle Button
+        this.e.shuffleBtn.addEventListener("click", () => {
+            if (this.e.shuffleCheckbox.checked == true) {
+                this.e.shuffleCheckbox.checked = false;
+                this.e.shuffleBtn.style.backgroundColor = "#fff";
+            } else {
+                this.e.shuffleCheckbox.checked = true;
+                this.e.shuffleBtn.style.backgroundColor = "#aaa";
+            }
+        });
+        
+        // Repeat
+        this.e.repeatBtn.addEventListener("click", () => {
+            if (this.e.repeatCheckbox.checked == true) {
+                this.e.repeatCheckbox.checked = false;
+                this.e.repeatBtn.style.backgroundColor = "#fff";
+            } else {
+                this.e.repeatCheckbox.checked = true;
+                this.e.repeatBtn.style.backgroundColor = "#aaa";
+            }
         });
 
         this.e.volume.addEventListener("input", () => {
@@ -281,6 +370,8 @@ let musicPlayer = {
         this.e.volume.value = 0.5 * 100;
         this.e.songProgressBar.value = 0;
         this.e.volumeValue.innerHTML = this.e.volume.value;
+        this.e.repeatCheckbox.checked = false;
+        this.e.shuffleCheckbox.checked = false;
     },
 };
 

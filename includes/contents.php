@@ -1,4 +1,4 @@
-<div id="mp" class="mp mp--black-red">
+<div id="mp" class="mp">
     <div class="mp__options-toggle">
         <svg id="mp__options-toggle-icon" class="mp__options-toggle-icon">
             <use xlink:href="icons/sprite.svg#icon-dots-three-horizontal"></use>
@@ -35,6 +35,18 @@
                     <svg class="mp__controls-icon">
                         <use xlink:href="icons/sprite.svg#icon-next2"></use>
                     </svg>
+                </button>
+                <button id="mp__controls-shuffle" class="mp__controls-btn">
+                    <svg class="mp__controls-icon">
+                        <use xlink:href="icons/sprite.svg#icon-shuffle"></use>
+                    </svg>
+                    <input type="checkbox" id="mp__controls-check-shuffle" class="mp__controls-check mp__controls-check-shuffle">
+                </button>
+                <button id="mp__controls-repeat" class="mp__controls-btn">
+                    <svg class="mp__controls-icon">
+                        <use xlink:href="icons/sprite.svg#icon-loop"></use>
+                    </svg>
+                    <input type="checkbox" id="mp__controls-check-repeat" class="mp__controls-check mp__controls-check-repeat">
                 </button>
             </div>
         </div>
