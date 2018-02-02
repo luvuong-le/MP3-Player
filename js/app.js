@@ -63,7 +63,7 @@ let musicPlayer = {
             for(let mp of jsondata) {
                 let newSongItem = document.createElement("button");
                 newSongItem.className = "mp__playlist-btn";
-                newSongItem.innerHTML = mp.name;
+                newSongItem.innerHTML = mp.name.substring(0, mp.name.length - 4);
 
                 this.e.playlistItems.appendChild(newSongItem);
             }
@@ -73,7 +73,7 @@ let musicPlayer = {
 
     playSong: function(songName) {
         this.stopAllSongs();
-        let songToPlay = new Audio(`music/${songName}`);
+        let songToPlay = new Audio(`music/${songName}.mp3`);
         songToPlay.innerHTML = songName;
 
         songToPlay.addEventListener("loadedmetadata", () => {
@@ -123,10 +123,12 @@ let musicPlayer = {
     },
 
     playNextSong: function() {
-        let songIndex = (this.e.shuffleCheckbox.checked == true) ?  Math.floor(Math.random() * this.e.songItems.length) 
-        : musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : this.findIndex() + 1;
+        let songIndex = 0;
         
-        //let songIndex = ;
+        if (this.e.currentlyPlaying[0] != undefined) {
+            songIndex = (this.e.shuffleCheckbox.checked == true) ? Math.floor(Math.random() * this.e.songItems.length) :
+            (musicPlayer.findIndex() == this.e.songItems.length - 1) ? 0 : this.findIndex() + 1;
+        }
 
         let songName = this.e.songItems[songIndex].innerHTML;
 
@@ -136,9 +138,13 @@ let musicPlayer = {
     },
 
     playPreviousSong: function() {
-       let songIndex = (this.e.shuffleCheckbox.checked == true) ?  Math.floor(Math.random() * this.e.songItems.length) 
-        : musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : musicPlayer.findIndex() == this.e.songItems.length - 1 ? 0 : this.findIndex() - 1;
-        
+        let songIndex = this.e.songItems.length - 1;
+
+        if (this.e.currentlyPlaying[0] != undefined) {
+            songIndex = (this.e.shuffleCheckbox.checked == true) ? Math.floor(Math.random() * this.e.songItems.length) :
+            (musicPlayer.findIndex() == 0) ? this.e.songItems.length - 1 : this.findIndex() - 1;
+        }
+
         let songName = this.e.songItems[songIndex].innerHTML;
 
         this.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
@@ -329,12 +335,14 @@ let musicPlayer = {
     },
 
     findIndex: function() {
-         for (let i = 0; i < this.e.songItems.length; i++) {
-             // Add event listener 
-             if (this.e.songItems[i].innerHTML == this.e.currentlyPlaying[0].innerHTML) {
-                 return i;
-             } 
-         }
+        if (this.e.songItems.length != null) {
+            for (let i = 0; i < this.e.songItems.length; i++) {
+                // Add event listener 
+                if (this.e.songItems[i].innerHTML == this.e.currentlyPlaying[0].innerHTML) {
+                    return i;
+                }
+            }
+        }
     },
 
     removeSelected: function() {

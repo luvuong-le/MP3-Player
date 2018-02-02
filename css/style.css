@@ -66,7 +66,7 @@ html {
         cursor: pointer;
         transition: all .1s; }
         .mp__options-toggle-icon:active {
-          transform: translateX(-1rem); }
+          transform: translateX(-0.2rem); }
     .mp__options-upload-btn, .mp__options-theme-select {
       transition: all .2s;
       border: 0;
@@ -114,6 +114,8 @@ html {
       padding: 1.5rem 0rem;
       cursor: pointer;
       transition: all .2s; }
+      .mp__controls-btn:focus {
+        outline: none; }
       .mp__controls-btn:not(:first-child) {
         margin-left: 1rem; }
       .mp__controls-btn:hover {
@@ -122,7 +124,8 @@ html {
         border: 0.15rem solid #567da5;
         transform: translateY(-0.2rem); }
       .mp__controls-btn:active {
-        transform: translateY(0.2rem); }
+        transform: translateY(0.2rem);
+        outline: none; }
     .mp__controls-icon {
       width: 100%;
       height: 100%;
@@ -130,6 +133,8 @@ html {
     .mp__controls-check {
       opacity: 0;
       visibility: hidden; }
+      .mp__controls-check:focus {
+        outline: none; }
   .mp__song-duration {
     grid-column: 1 / -1;
     display: grid;
