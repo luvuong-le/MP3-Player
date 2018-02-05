@@ -6,7 +6,12 @@
     </div>
     <div id="mp__options" class="mp__options">
         <h3>Options</h3>
-        <a href="#" class="mp__options-upload-btn">Upload</a>
+        <h4>Upload MP3 Files</h4>
+        <form action="upload.php" method="POST" enctype="multipart/form-data" class="mp__options-form">
+            <input type="file" name="mp__options-songs[]" class="mp__options-upload-btn" multiple><br>
+            <input type="submit" name="submit" value="Upload Files" class="mp__options-upload-btn">
+        </form>
+        <h4>Select a Theme</h4>
         <select name="themes" id="mp__options-theme-options" class="mp__options-theme-select">
             <option value="default" selected>Default</option>
             <option value="materialistic">Materialistic</option>

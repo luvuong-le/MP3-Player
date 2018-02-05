@@ -328,8 +328,10 @@ let musicPlayer = {
         this.e.optionToggle.addEventListener("click", () => {
             if (this.e.optionCont.clientHeight != 0) {
                 this.e.optionCont.style.height = "0rem";
+                this.e.optionCont.style.padding = "0rem";
             } else {
-                this.e.optionCont.style.height = "7rem";
+                this.e.optionCont.style.height = "40rem";
+                this.e.optionCont.style.padding = "1rem";
             }
         });
     },

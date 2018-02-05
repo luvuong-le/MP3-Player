@@ -44,17 +44,29 @@ html {
   font-size: 2rem;
   padding: 1.5rem 0rem;
   transition: all 1.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  overflow: hidden; }
+  overflow: hidden;
+  box-shadow: .8rem 1rem 1rem #aaa; }
   .mp__options {
     width: 100%;
     height: 0rem;
     background-color: dodgerblue;
     transition: all .3s ease;
     overflow: hidden;
-    display: flex; }
+    display: flex;
+    flex-flow: column;
+    position: fixed;
+    padding: 0rem;
+    z-index: 1; }
     .mp__options > h3 {
       align-self: center;
       padding: .5rem; }
+    .mp__options > h4 {
+      padding: 0 1rem;
+      text-align: center; }
+    .mp__options-form {
+      margin: 0 auto;
+      width: 50%;
+      text-align: center; }
     .mp__options-toggle {
       width: 100%;
       text-align: right;
@@ -73,12 +85,12 @@ html {
       padding: 1rem;
       text-align: left;
       cursor: pointer;
-      margin: 1rem 0;
+      margin: 2rem auto;
       background: transparent;
       color: #fff;
       border: 1px solid #fff;
       text-decoration: none;
-      margin-left: 1rem; }
+      width: 50%; }
     .mp__options-theme-select > option {
       background: #000; }
     .mp__options-upload-btn:hover {

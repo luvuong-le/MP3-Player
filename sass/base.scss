@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=VT323');
+
+// Variables 
+$mp: ".mp";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+@keyframes slideLeftToRight {
+    0% {
+        transform: translateX(0%)
+    }
+    10% {
+        transform: translateX(2%)
+    }
+    20% {
+        transform: translateX(4%)
+    }
+    30% {
+        transform: translateX(6%)
+    }
+    40% {
+        transform: translateX(8%)
+    }
+    50% {
+        transform: translateX(10%)
+    }
+    60% {
+        transform: translateX(8%)
+    }
+    70% {
+        transform: translateX(6%)
+    }
+    80% {
+        transform: translateX(4%)
+    }
+    90% {
+        transform: translateX(2%)
+    }
+    100% {
+        transform: translateX(0%)
+    }
+}
