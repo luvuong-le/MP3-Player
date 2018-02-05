@@ -7,18 +7,17 @@
     $SIZE_LIMIT = 10000;
 
     // Check if submit is isset
-
     if (isset($_POST["submit"])) {
         $ITER = 0;
         foreach($_FILES["mp__options-songs"]["tmp_name"] as $file) {
 
             $filename = getFileName($ITER);
-            
+
             // Get the actual name and rename the files first 
             $renamed_file = str_replace($special_chars, "", $filename);
      
             if (file_exists($target . $renamed_file)) {
-                echo "File Already Exists";
+                echo $renamed_file . " File Already Exists";
                 die();
                 // Send back to music player with a message 
             }
@@ -44,7 +43,6 @@
                 // Upload File Here
                 if (move_uploaded_file($file, $target . $renamed_file)) {
                     echo $renamed_file . " uploaded successfuly" .  "<br>"; 
-                    sleep(1);
                     header("location: index.php");
                     require "includes/mp_playlist_get.php";
                 } else {

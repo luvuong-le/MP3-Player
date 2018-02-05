@@ -4,6 +4,32 @@ let upload = {
         fileUpload: document.getElementById("mp__options-upload-btn"),
         fileLabel: document.getElementById("mp__options-label"),
         fileText: document.getElementById("mp__options-label-caption"),
+        draggableArea: document.getElementById("mp"),
+        fileSubmit: document.getElementById("mp__options-file-submit"),
+    },
+
+    addDraggable: function() {
+        this.e.draggableArea.addEventListener("dragenter", (e) => {
+            e.preventDefault();
+            this.e.draggableArea.style.opacity = .5;
+        });
+
+        this.e.draggableArea.addEventListener("dragleave", (e) => {
+            e.preventDefault();
+            this.e.draggableArea.style.opacity = 1;
+        });
+
+        this.e.draggableArea.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+        });
+
+        this.e.draggableArea.addEventListener("drop", (e) => {
+            e.preventDefault();
+            this.e.draggableArea.style.opacity = 1;
+            this.e.fileUpload.files = e.dataTransfer.files; 
+            this.e.fileSubmit.click();
+        });
     },
 
     init: function() {
@@ -25,6 +51,8 @@ let upload = {
                 this.e.fileText.textContent = `${e.target.files.length + 1} files selected`;
             }
         });
+
+        this.addDraggable();
     }
 };
 
