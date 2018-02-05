@@ -1,3 +1,11 @@
+// Extends 
+%btn-hover {
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    transform: translateY(-.5rem);
+}
+
 .mp {
     font-family: 'VT323', monospace;
     width: 50%;
@@ -32,6 +40,7 @@
         }
 
         & > h4 {
+            margin: 1rem;
             padding: 0 1rem;
             text-align: center;
         }
@@ -74,16 +83,45 @@
             width: 50%;
         }
 
+        &-label {
+           transition: all .2s;
+           border: 0;
+           padding: 1rem;
+           text-align: left;
+           cursor: pointer;
+           margin: 2rem auto;
+           background: transparent;
+           color: #fff;
+           border: 1px solid #fff;
+           text-decoration: none;
+           width: 50%;
+           display: inline-block;
+
+           &:hover {
+                @extend %btn-hover;
+           }
+
+           &-caption {
+                color: black;
+           }
+        }
+
         &-theme-select > option {
             background: #000;
         }
 
         &-upload-btn {
+            &--hidden {
+                width: 0.1px;
+                height: 0.1px;
+                opacity: 0;
+                overflow: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+
             &:hover {
-                background: #fff;
-                color: #000;
-                border: 1px solid #000;
-                transform: translateY(-.5rem);
+                @extend %btn-hover;
             }
 
             &:active {

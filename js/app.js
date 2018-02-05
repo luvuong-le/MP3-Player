@@ -330,7 +330,7 @@ let musicPlayer = {
                 this.e.optionCont.style.height = "0rem";
                 this.e.optionCont.style.padding = "0rem";
             } else {
-                this.e.optionCont.style.height = "40rem";
+                this.e.optionCont.style.height = "50rem";
                 this.e.optionCont.style.padding = "1rem";
             }
         });

@@ -44,7 +44,7 @@
                 // Upload File Here
                 if (move_uploaded_file($file, $target . $renamed_file)) {
                     echo $renamed_file . " uploaded successfuly" .  "<br>"; 
-                    sleep(2);
+                    sleep(1);
                     header("location: index.php");
                     require "includes/mp_playlist_get.php";
                 } else {

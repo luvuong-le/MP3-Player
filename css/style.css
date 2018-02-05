@@ -31,6 +31,12 @@ html {
   100% {
     transform: translateX(0%); } }
 
+.mp__options-label:hover, .mp__options-upload-btn:hover {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  transform: translateY(-0.5rem); }
+
 .mp {
   font-family: 'VT323', monospace;
   width: 50%;
@@ -61,6 +67,7 @@ html {
       align-self: center;
       padding: .5rem; }
     .mp__options > h4 {
+      margin: 1rem;
       padding: 0 1rem;
       text-align: center; }
     .mp__options-form {
@@ -91,13 +98,30 @@ html {
       border: 1px solid #fff;
       text-decoration: none;
       width: 50%; }
+    .mp__options-label {
+      transition: all .2s;
+      border: 0;
+      padding: 1rem;
+      text-align: left;
+      cursor: pointer;
+      margin: 2rem auto;
+      background: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+      text-decoration: none;
+      width: 50%;
+      display: inline-block; }
+      .mp__options-label-caption {
+        color: black; }
     .mp__options-theme-select > option {
       background: #000; }
-    .mp__options-upload-btn:hover {
-      background: #fff;
-      color: #000;
-      border: 1px solid #000;
-      transform: translateY(-0.5rem); }
+    .mp__options-upload-btn--hidden {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1; }
     .mp__options-upload-btn:active {
       transform: translateY(1rem); }
   .mp__details {

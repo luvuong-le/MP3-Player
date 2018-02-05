@@ -5,11 +5,13 @@
         </svg>
     </div>
     <div id="mp__options" class="mp__options">
-        <h3>Options</h3>
+        <h2>Options</h2>
         <h4>Upload MP3 Files</h4>
         <form action="upload.php" method="POST" enctype="multipart/form-data" class="mp__options-form">
-            <input type="file" name="mp__options-songs[]" class="mp__options-upload-btn" multiple><br>
-            <input type="submit" name="submit" value="Upload Files" class="mp__options-upload-btn">
+            <input type="file" id="mp__options-upload-btn" name="mp__options-songs[]" class="mp__options-upload-btn mp__options-upload-btn--hidden" hidden="hidden" multiple>
+            <label for="file" id="mp__options-label" class="mp__options-label">Upload MP3 Files</label>
+            <input type="submit" name="submit" value="Upload Songs" class="mp__options-upload-btn"><br>
+            <span id="mp__options-label-caption" class="mp__options-label-caption">No Files Selected</span>
         </form>
         <h4>Select a Theme</h4>
         <select name="themes" id="mp__options-theme-options" class="mp__options-theme-select">
