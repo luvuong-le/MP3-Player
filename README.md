@@ -13,3 +13,7 @@ Features to implement:
 Steps for usage: 
 
 - Create a 'music' folder and add mp3 files in there. Load the application index.php and all should be working. 
+
+** Important Notes **
+
+This music player is only compatible with .mp3 files!

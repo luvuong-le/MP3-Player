@@ -39,6 +39,17 @@ let upload = {
             this.e.fileUpload.click();
         });
 
+        this.e.fileSubmit.addEventListener("click", (e) => {
+            if (this.e.fileUpload.files.length == 0) {
+                e.preventDefault();
+                this.e.fileText.textContent = "A file must be selected!";
+
+                setTimeout(() => {
+                    this.e.fileText.textContent = "No File Selected";
+                }, 2000);
+            }
+        });
+
         this.e.fileUpload.addEventListener("change", (e) => {
             console.log(e.target.getAttribute("data-caption"));
             // If the file changes, if there are more than one files just change the text to label value to the number of files otherwise

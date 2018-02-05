@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <head>
     <?php require 'page_title.php' ?>
     <?php require 'mp_playlist_get.php' ?>
