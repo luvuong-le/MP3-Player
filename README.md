@@ -1,16 +1,16 @@
-Music Player Created with HTML CSS JS PHP
+------------------------- Music Player Created with HTML CSS JS PHP --------------------------
 
 Features: 
 - Allows the user to put music in the music folder
 - Functions like a normal music player with play pause, previous, next
 - Theme Chooser
 - Duration and Current Time
-- Uploading MP3 Files through form and dragging
+- Uploading MP3 Files through form and drag and drop (Flash messages displayed)
 
 Steps for usage: 
+- Create a 'music' folder and add mp3 files in there. Load the application index.php using a web server and all should be working. 
 
-- Create a 'music' folder and add mp3 files in there. Load the application index.php and all should be working. 
 
-** Important Notes **
+****** IMPORTANT NOTES ******
 
-This music player is only compatible with .mp3 files!
+This music player is only compatible with .mp3 files
