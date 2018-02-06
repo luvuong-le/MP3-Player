@@ -41,11 +41,11 @@ let musicPlayer = {
         songEndTime: document.getElementById("mp__song-duration-end"),
     },
 
-    readFile: function(callback) {
+    readFile: function(filename, callback) {
         let httpreq = new XMLHttpRequest();
         httpreq.overrideMimeType('application/json');
 
-        httpreq.open("GET", 'music_files.json', true);
+        httpreq.open("GET", filename, true);
 
         httpreq.onreadystatechange = function () {
             if (httpreq.readyState == 4 && httpreq.status == "200") {
@@ -57,7 +57,7 @@ let musicPlayer = {
     },
 
     createButtons: function() {
-        this.readFile((response) => {
+        this.readFile('music_files.json', (response) => {
             let jsondata = JSON.parse(response);
 
             for(let mp of jsondata) {
@@ -71,6 +71,30 @@ let musicPlayer = {
         });
     },
 
+    updateCurrentSong: function() {
+        if (this.e.currentlyPlaying[0] != null) {
+            // If current song is not equal to null then update local storage with the currently playing song and all its details in an object
+
+            // Session Storage will keep track of: 
+            /*
+                Song Name:
+                Song Duration:
+                Song Current Time: 
+            */
+            let currently_playing = {
+                "name": this.e.currentlyPlaying[0].textContent,
+                "duration": this.e.currentlyPlaying[0].duration,
+                "current_time": this.e.currentlyPlaying[0].currentTime,
+            };
+
+            localStorage.setItem("currently_playing", JSON.stringify(currently_playing));
+        }
+    },
+
+    removeCurrentSong: function() {
+        localStorage.removeItem("currently_playing");    
+    },
+
     playSong: function(songName) {
         this.stopAllSongs();
         let songToPlay = new Audio(`music/${songName}.mp3`);
@@ -81,6 +105,14 @@ let musicPlayer = {
             songToPlay.volume = musicPlayer.e.volume.value / 100;
 
             this.e.currentlyPlaying.push(songToPlay);
+            
+            let data = JSON.parse(localStorage.getItem("currently_playing"));
+            
+            if (data != null && songName == data.name) {
+                this.e.currentlyPlaying[0].currentTime = data.current_time;
+                this.e.songProgressBar.value = data.current_time;
+            }
+
             songToPlay.play();
 
             // Set the range slider min and max to current Time and Duration
@@ -90,9 +122,11 @@ let musicPlayer = {
 
             // Update 
             this.updateDetails();
-
+            
             //Change SVG to Pause
             this.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2");
+
+            this.removeCurrentSong();
         });
 
         songToPlay.addEventListener("timeupdate", () => {
@@ -377,11 +411,24 @@ let musicPlayer = {
 
     init: function() {
         this.createButtons();
-        this.e.volume.value = 0.5 * 100;
-        this.e.songProgressBar.value = 0;
-        this.e.volumeValue.innerHTML = this.e.volume.value;
-        this.e.repeatCheckbox.checked = false;
-        this.e.shuffleCheckbox.checked = false;
+
+        // If there is a current song in the local storage play it, otherwise set to default values 
+        let currently_playing = JSON.parse(localStorage.getItem("currently_playing"));
+
+        if (currently_playing != null) {
+            this.playSong(currently_playing.name);
+            this.e.volume.value = 0.5 * 100;
+            this.e.songProgressBar.value = currently_playing.current_time;
+            this.e.volumeValue.innerHTML = this.e.volume.value;
+            this.e.repeatCheckbox.checked = false;
+            this.e.shuffleCheckbox.checked = false;
+        } else {
+            this.e.volume.value = 0.5 * 100;
+            this.e.songProgressBar.value = 0;
+            this.e.volumeValue.innerHTML = this.e.volume.value;
+            this.e.repeatCheckbox.checked = false;
+            this.e.shuffleCheckbox.checked = false;
+        }
     },
 };
 

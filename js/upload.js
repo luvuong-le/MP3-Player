@@ -12,11 +12,15 @@ let upload = {
         this.e.draggableArea.addEventListener("dragenter", (e) => {
             e.preventDefault();
             this.e.draggableArea.style.opacity = .5;
+
+            musicPlayer.updateCurrentSong();
+            
         });
 
         this.e.draggableArea.addEventListener("dragleave", (e) => {
             e.preventDefault();
             this.e.draggableArea.style.opacity = 1;
+            musicPlayer.removeCurrentSong();
         });
 
         this.e.draggableArea.addEventListener("dragover", (e) => {
@@ -26,6 +30,7 @@ let upload = {
 
         this.e.draggableArea.addEventListener("drop", (e) => {
             e.preventDefault();
+            musicPlayer.updateCurrentSong();
             this.e.draggableArea.style.opacity = 1;
             this.e.fileUpload.files = e.dataTransfer.files; 
             this.e.fileSubmit.click();
@@ -51,7 +56,6 @@ let upload = {
         });
 
         this.e.fileUpload.addEventListener("change", (e) => {
-            console.log(e.target.getAttribute("data-caption"));
             // If the file changes, if there are more than one files just change the text to label value to the number of files otherwise
             // If there is only one file make the label that file name
             if (e.target.files.length == 0) {
@@ -61,6 +65,7 @@ let upload = {
             } else {
                 this.e.fileText.textContent = `${e.target.files.length} files selected`;
             }
+            musicPlayer.updateCurrentSong();
         });
 
         this.addDraggable();
