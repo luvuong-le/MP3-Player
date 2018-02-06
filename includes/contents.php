@@ -1,13 +1,7 @@
-<div id="mp" class="mp" draggable>
-    <div class="mp__options-toggle">
-        <svg id="mp__options-toggle-icon" class="mp__options-toggle-icon">
-            <use xlink:href="icons/sprite.svg#icon-dots-three-horizontal"></use>
-        </svg>
-    </div>
     <div id="mp__options" class="mp__options">
         <h2>Options</h2>
         <h4>Upload MP3 Files</h4>
-        <form action="upload.php" method="POST" enctype="multipart/form-data" class="mp__options-form">
+        <form method="POST" enctype="multipart/form-data" class="mp__options-form">
             <input type="file" id="mp__options-upload-btn" name="mp__options-songs[]" class="mp__options-upload-btn mp__options-upload-btn--hidden" hidden="hidden" multiple>
             <label for="file" id="mp__options-label" class="mp__options-label">Upload MP3 Files</label>
             <input type="submit" name="submit" id="mp__options-file-submit" value="Upload Songs" class="mp__options-upload-btn"><br>

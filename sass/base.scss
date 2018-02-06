@@ -48,3 +48,16 @@ html {
         transform: translateX(0%)
     }
 }
+
+.alert {
+    text-align: left;
+    display: inline-block;
+
+    &-danger {
+        color: crimson;
+    }
+
+    &-success {
+        color: greenyellow;
+    }
+}

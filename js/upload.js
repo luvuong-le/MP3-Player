@@ -59,7 +59,7 @@ let upload = {
             } else if (e.target.files.length == 1) {
                 this.e.fileText.textContent = e.target.files[0].name;
             } else {
-                this.e.fileText.textContent = `${e.target.files.length + 1} files selected`;
+                this.e.fileText.textContent = `${e.target.files.length} files selected`;
             }
         });
 

@@ -31,6 +31,14 @@ html {
   100% {
     transform: translateX(0%); } }
 
+.alert {
+  text-align: left;
+  display: inline-block; }
+  .alert-danger {
+    color: crimson; }
+  .alert-success {
+    color: greenyellow; }
+
 .mp__options-label:hover, .mp__options-upload-btn:hover {
   background: #fff;
   color: #000;
@@ -76,6 +84,7 @@ html {
       text-align: center; }
     .mp__options-toggle {
       width: 100%;
+      display: flex;
       text-align: right;
       padding: 0rem 1rem; }
       .mp__options-toggle-icon {
@@ -83,7 +92,8 @@ html {
         height: 2rem;
         fill: #fff;
         cursor: pointer;
-        transition: all .1s; }
+        transition: all .1s;
+        margin-left: auto; }
         .mp__options-toggle-icon:active {
           transform: translateX(-0.2rem); }
     .mp__options-upload-btn, .mp__options-theme-select {

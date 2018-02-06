@@ -1,5 +1,4 @@
 <?php 
-
     // Target Directory for the uploaded files to go in
     $target = getcwd() . "/music/";
     $uploaded = 0;
@@ -17,36 +16,45 @@
             $renamed_file = str_replace($special_chars, "", $filename);
      
             if (file_exists($target . $renamed_file)) {
-                echo $renamed_file . " File Already Exists";
-                die();
                 // Send back to music player with a message 
+                $_SESSION["message-danger"] = $renamed_file . " File Already Exists";
+                header("location: index.php");
+                exit(0);
             }
 
             // Check if mp3 files are less than 10MB
             if (checkFileSize($SIZE_LIMIT) == true) {
-                echo "File size is too large, Please make sure each file size is below 10MB";
-                die();
+                $_SESSION["message-danger"] = "File size is too large, Please make sure each file size is below 10MB";
+                header("location: index.php");
+                exit(0);
             }
 
             // Check if the files uploaded are all MP3 Files
             if (pathinfo($target . $renamed_file, PATHINFO_EXTENSION) != "mp3") {
-                echo "Invalid File Type: Files must be .mp3";
-                die();
+                $_SESSION["message-danger"] = "Invalid File Type: Files must be .mp3";
+                header("location: index.php");
+                exit(0);
             }
 
             $uploaded = 1;
 
             // If after all this the uploaded is still 0, report upload failed
             if ($uploaded == 0) {
-                echo "Upload Failed";
+                $_SESSION["message-danger"] = "Upload Failed";
+                header("location: index.php");
+                exit(0);
             } else {
                 // Upload File Here
                 if (move_uploaded_file($file, $target . $renamed_file)) {
-                    echo $renamed_file . " uploaded successfuly" .  "<br>"; 
+                    // $renamed_file . " uploaded successfuly" .  "<br>"
+                    $_SESSION["message-success"] = "Songs uploaded successfully"; 
                     header("location: index.php");
                     require "includes/mp_playlist_get.php";
+                    exit(0);
                 } else {
-                    echo "File could not be uploaded";
+                    $_SESSION["message-danger"] = "File could not be uploaded";
+                    header("location: index.php");
+                    exit(0);
                 }
             }
 

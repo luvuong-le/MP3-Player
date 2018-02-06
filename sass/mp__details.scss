@@ -53,6 +53,7 @@
     
         &-toggle {
             width: 100%;
+            display: flex;
             text-align: right;
             padding: 0rem 1rem;
 
@@ -62,6 +63,7 @@
                 fill: #fff;
                 cursor: pointer;
                 transition: all .1s;
+                margin-left: auto;
 
                 &:active {
                     transform: translateX(-.2rem);

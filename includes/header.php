@@ -1,4 +1,5 @@
 <?php session_start() ?>
+<?php require "upload.php" ?>
 <head>
     <?php require 'page_title.php' ?>
     <?php require 'mp_playlist_get.php' ?>
