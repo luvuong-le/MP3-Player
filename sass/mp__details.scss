@@ -177,7 +177,17 @@
         justify-content: center;
 
         &-now {
+            @include respond(phone) {
+                width: 150px;
+                text-overflow: ellipsis;
+                /* Required for text-overflow to do anything */
+
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
             word-break: break-all;
+
             animation: slideLeftToRight 2s linear infinite;
         }
     }
@@ -346,7 +356,6 @@
             word-break: break-all;
 
             @include respond(phone) {
-        
                 overflow-x: hidden;
             }
         }

@@ -186,6 +186,13 @@ html {
     .mp__playing-now {
       word-break: break-all;
       animation: slideLeftToRight 2s linear infinite; }
+      @media only screen and (max-width: 37.5em) {
+        .mp__playing-now {
+          width: 150px;
+          text-overflow: ellipsis;
+          /* Required for text-overflow to do anything */
+          white-space: nowrap;
+          overflow: hidden; } }
   .mp__controls {
     margin-top: 1.5rem;
     display: flex; }
