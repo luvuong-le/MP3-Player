@@ -47,10 +47,6 @@
                 // Upload File Here
                 if (move_uploaded_file($file, $target . $renamed_file)) {
                     // $renamed_file . " uploaded successfuly" .  "<br>"
-                    $_SESSION["message-success"] = "Songs uploaded successfully"; 
-                    header("location: index.php");
-                    require "includes/mp_playlist_get.php";
-                    exit(0);
                 } else {
                     $_SESSION["message-danger"] = "File could not be uploaded";
                     header("location: index.php");
@@ -60,6 +56,10 @@
 
             $ITER++;
         }
+        $_SESSION["message-success"] = "Songs uploaded successfully"; 
+        header("location: index.php");
+        require "includes/mp_playlist_get.php";
+        exit(0);
     }
 
     // print_r(count($_FILES["mp__options-songs"]["name"]));

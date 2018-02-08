@@ -5,7 +5,7 @@
 
     switch($pagename) {
         case "index.php":
-            $title = "Custom Player | UI";
+            $title = "MP3 Player";
             break;
         default: 
             $title = "Error";

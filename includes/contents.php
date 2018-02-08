@@ -12,12 +12,11 @@
             <option value="default" selected>Default</option>
             <option value="materialistic">Materialistic</option>
             <option value="light">Light</option>
-            <option value="dark">Dark</option>
             <option value="black-red">Black and Red</option>
         </select>
     </div>
     <div class="mp__details">
-        <img src="http://via.placeholder.com/150x150" alt="Cover">
+        <img src="http://via.placeholder.com/150x150" alt="Cover" class="mp__details-art">
         <div class="mp__playing">
             <h3>Now Playing </h3>
             <p id="mp__playing-now" class="mp__playing-now"></p>

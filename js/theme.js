@@ -10,9 +10,6 @@ let themes = {
                 case "default": 
                     this.updateTheme("mp");
                     break;
-                case "dark": 
-                    this.updateTheme("mp--dark");
-                    break;
                 case "light": 
                     this.updateTheme("mp--light");
                     break;

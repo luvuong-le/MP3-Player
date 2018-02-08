@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=VT323');
+@import url('https://fonts.googleapis.com/css?family=Righteous');
+@import url('https://fonts.googleapis.com/css?family=Teko');
 
 // Variables 
 $mp: ".mp";
@@ -10,6 +12,7 @@ $mp: ".mp";
 }
 
 html {
+    font-family: 'VT323', monospace;
     font-size: 62.5%;
 }
 

@@ -7,7 +7,6 @@
 }
 
 .mp {
-    font-family: 'VT323', monospace;
     width: 50%;
     height: 85%;
     background-color: #000;
@@ -17,15 +16,26 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 2rem;
-    padding: 1.5rem 0rem;
+    padding-top: 1.5rem;
     transition: all 1.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     overflow: hidden;
     box-shadow: .8rem 1rem 1rem #aaa;
+    border-radius: 5px;
+
+    @include respond(tablet-landscape) {
+        width: 65%;
+        height: 95%;
+    }
+
+    @include respond(tablet-portrait) {
+        width: 100%;
+        height: 100%;
+    }
 
     &__options {
         width: 100%;
         height: 0rem;
-        background-color: dodgerblue;
+        background-color: #000;
         transition: all .3s ease;
         overflow: hidden;
         display: flex;
@@ -56,6 +66,8 @@
             display: flex;
             text-align: right;
             padding: 0rem 1rem;
+            position: absolute;
+            top: 0;
 
             &-icon {
                 width: 2rem;
@@ -72,6 +84,8 @@
         }
 
         &-upload-btn, &-theme-select {
+            font-family: 'VT323', monospace;
+            font-size: 1.8rem;
             transition: all .2s;
             border: 0;
             padding: 1rem;
@@ -106,7 +120,7 @@
            &-caption {
                 font-weight: bold;
                 font-style: italic;
-                color: black;
+                color: #fff;
            }
         }
 
@@ -142,6 +156,19 @@
         grid-row-gap: 1rem;
         height: 40%;
         padding: 1.5rem;
+
+        @include respond(phone) {
+            height: 50%;
+            grid-template-rows: max-content 4rem 7rem;
+            grid-column-gap: 2rem;
+        }
+    }
+
+    &-art {
+        @include respond(phone) {
+            height: 10px;
+            width: 20px;
+        }
     }
 
     &__playing {
@@ -150,7 +177,7 @@
         justify-content: center;
 
         &-now {
-            word-wrap: break-word;
+            word-break: break-all;
             animation: slideLeftToRight 2s linear infinite;
         }
     }
@@ -159,7 +186,17 @@
         margin-top: 1.5rem;
         display: flex;
 
+        @include respond(phone)
+        {
+            display: grid;
+            grid-template-columns: repeat(3, min-content);
+            grid-template-rows: repeat(2, max-content);
+            align-items: center;
+            grid-gap: 1rem;
+        }
+
         &-btn {
+            justify-self: center;
             height: 5rem;
             width: 5rem;
             border: 0;
@@ -168,12 +205,23 @@
             cursor: pointer;
             transition: all .2s;
 
+            @include respond(phone) {
+                height: 4.5rem;
+                width: 4.5rem;
+            }
+
             &:focus {
                 outline: none;
             }
 
             &:not(:first-child) {
                 margin-left: 1rem;
+            }
+
+            @include respond(phone) {
+                &:not(:first-child) {
+                    margin-left: 0rem;
+                }
             }
 
             &:hover {
@@ -225,7 +273,7 @@
             grid-column: 1 / -1;
             align-self: center;
             height: 80%;
-            width: 100%;
+            width: 95%;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -242,6 +290,7 @@
 
         &-end {
             justify-self: end;
+            margin-right: 1rem;
         }
     }
 
@@ -249,6 +298,10 @@
         grid-column: 1 / -1;
         margin-top: 1rem;
         display: flex;
+
+        @include respond (phone) {
+            height: 35%;
+        }
 
         &-slider {
             width: 90%;
@@ -275,18 +328,31 @@
     }
 
     &__playlist {
+        position: relative;
         height: 60%;
         padding: 3rem;
         padding-bottom: 4rem;
+
+        @include respond(phone) {
+            height: 50%;
+            overflow-x: hidden;
+        }
 
         &-items {
             height: 100%;
             width: 100%;
             overflow: auto;
             padding-right: 1rem;
+            word-break: break-all;
+
+            @include respond(phone) {
+        
+                overflow-x: hidden;
+            }
         }
 
         &-btn {
+              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
             transition: all .2s;
             width: 100%;
             border: 0;

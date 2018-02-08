@@ -1,10 +1,22 @@
+/*
+
+    0 - 600px: Phones
+    600 - 900px: Tablets Portrait
+    900 - 1350px: Tablet Landscape
+    1350 - 1800+ : Normal Styles
+    1800+ Big desktop
+
+*/
 @import url("https://fonts.googleapis.com/css?family=VT323");
+@import url("https://fonts.googleapis.com/css?family=Righteous");
+@import url("https://fonts.googleapis.com/css?family=Teko");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box; }
 
 html {
+  font-family: 'VT323', monospace;
   font-size: 62.5%; }
 
 @keyframes slideLeftToRight {
@@ -48,7 +60,6 @@ html {
   transform: translateY(-0.5rem); }
 
 .mp {
-  font-family: 'VT323', monospace;
   width: 50%;
   height: 85%;
   background-color: #000;
@@ -58,14 +69,23 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
-  padding: 1.5rem 0rem;
+  padding-top: 1.5rem;
   transition: all 1.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   overflow: hidden;
-  box-shadow: .8rem 1rem 1rem #aaa; }
+  box-shadow: .8rem 1rem 1rem #aaa;
+  border-radius: 5px; }
+  @media only screen and (max-width: 84.375em) {
+    .mp {
+      width: 65%;
+      height: 95%; } }
+  @media only screen and (max-width: 56.25em) {
+    .mp {
+      width: 100%;
+      height: 100%; } }
   .mp__options {
     width: 100%;
     height: 0rem;
-    background-color: dodgerblue;
+    background-color: #000;
     transition: all .3s ease;
     overflow: hidden;
     display: flex;
@@ -88,7 +108,9 @@ html {
       width: 100%;
       display: flex;
       text-align: right;
-      padding: 0rem 1rem; }
+      padding: 0rem 1rem;
+      position: absolute;
+      top: 0; }
       .mp__options-toggle-icon {
         width: 2rem;
         height: 2rem;
@@ -99,6 +121,8 @@ html {
         .mp__options-toggle-icon:active {
           transform: translateX(-0.2rem); }
     .mp__options-upload-btn, .mp__options-theme-select {
+      font-family: 'VT323', monospace;
+      font-size: 1.8rem;
       transition: all .2s;
       border: 0;
       padding: 1rem;
@@ -126,7 +150,7 @@ html {
       .mp__options-label-caption {
         font-weight: bold;
         font-style: italic;
-        color: black; }
+        color: #fff; }
     .mp__options-theme-select > option {
       background: #000; }
     .mp__options-upload-btn--hidden {
@@ -146,17 +170,34 @@ html {
     grid-row-gap: 1rem;
     height: 40%;
     padding: 1.5rem; }
+    @media only screen and (max-width: 37.5em) {
+      .mp__details {
+        height: 50%;
+        grid-template-rows: max-content 4rem 7rem;
+        grid-column-gap: 2rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .mp-art {
+      height: 10px;
+      width: 20px; } }
   .mp__playing {
     display: flex;
     flex-flow: column;
     justify-content: center; }
     .mp__playing-now {
-      word-wrap: break-word;
+      word-break: break-all;
       animation: slideLeftToRight 2s linear infinite; }
   .mp__controls {
     margin-top: 1.5rem;
     display: flex; }
+    @media only screen and (max-width: 37.5em) {
+      .mp__controls {
+        display: grid;
+        grid-template-columns: repeat(3, min-content);
+        grid-template-rows: repeat(2, max-content);
+        align-items: center;
+        grid-gap: 1rem; } }
     .mp__controls-btn {
+      justify-self: center;
       height: 5rem;
       width: 5rem;
       border: 0;
@@ -164,10 +205,17 @@ html {
       padding: 1.5rem 0rem;
       cursor: pointer;
       transition: all .2s; }
+      @media only screen and (max-width: 37.5em) {
+        .mp__controls-btn {
+          height: 4.5rem;
+          width: 4.5rem; } }
       .mp__controls-btn:focus {
         outline: none; }
       .mp__controls-btn:not(:first-child) {
         margin-left: 1rem; }
+      @media only screen and (max-width: 37.5em) {
+        .mp__controls-btn:not(:first-child) {
+          margin-left: 0rem; } }
       .mp__controls-btn:hover {
         background: #fff;
         color: #000;
@@ -196,7 +244,7 @@ html {
       grid-column: 1 / -1;
       align-self: center;
       height: 80%;
-      width: 100%;
+      width: 95%;
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -208,11 +256,15 @@ html {
       .mp__song-duration-bar:focus {
         outline: none; }
     .mp__song-duration-end {
-      justify-self: end; }
+      justify-self: end;
+      margin-right: 1rem; }
   .mp__volume {
     grid-column: 1 / -1;
     margin-top: 1rem;
     display: flex; }
+    @media only screen and (max-width: 37.5em) {
+      .mp__volume {
+        height: 35%; } }
     .mp__volume-slider {
       width: 90%;
       background-color: gray;
@@ -231,15 +283,25 @@ html {
       height: 2rem;
       fill: #fff; }
   .mp__playlist {
+    position: relative;
     height: 60%;
     padding: 3rem;
     padding-bottom: 4rem; }
+    @media only screen and (max-width: 37.5em) {
+      .mp__playlist {
+        height: 50%;
+        overflow-x: hidden; } }
     .mp__playlist-items {
       height: 100%;
       width: 100%;
       overflow: auto;
-      padding-right: 1rem; }
+      padding-right: 1rem;
+      word-break: break-all; }
+      @media only screen and (max-width: 37.5em) {
+        .mp__playlist-items {
+          overflow-x: hidden; } }
     .mp__playlist-btn {
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
       transition: all .2s;
       width: 100%;
       border: 0;
@@ -311,22 +373,6 @@ input[type="range"]::-moz-range-progress {
 input[type="range"]::-ms-tooltip {
   display: none; }
 
-.mp--dark {
-  background-color: red; }
-  .mp--dark .mp__playlist {
-    background-color: orangered; }
-
-.mp--light {
-  background-color: rgba(30, 144, 255, 0.7);
-  color: darkblue;
-  border: 2px solid darkblue; }
-
-.mp--materialistic {
-  background-color: lightcoral; }
-
-.mp--wild {
-  background-color: palevioletred; }
-
 .mp--black-red {
   background: rgba(0, 0, 0, 0.9);
   border: 3px double crimson;
@@ -337,16 +383,109 @@ input[type="range"]::-ms-tooltip {
     .mp--black-red .mp__playlist-btn--selected, .mp--black-red .mp__playlist-btn:hover {
       background-color: rgba(220, 20, 60, 0.5); }
   .mp--black-red .mp__options {
-    background-color: crimson; }
+    background-color: #000;
+    color: crimson; }
     .mp--black-red .mp__options > h3 {
+      color: #fff; }
+    .mp--black-red .mp__options-label-caption {
       color: #fff; }
   .mp--black-red .mp__controls-btn {
     background: rgba(54, 53, 53, 0.835);
     box-shadow: .5rem .2rem 1rem crimson;
     transition: all .2s; }
   .mp--black-red input[type="range"]::-ms-fill-lower {
-    background: rgba(220, 20, 60, 0.4);
-    height: 100%; }
+    background: rgba(220, 20, 60, 0.85); }
   .mp--black-red input[type="range"]::-moz-range-progress {
-    background: rgba(220, 20, 60, 0.4);
-    height: 100%; }
+    background: rgba(220, 20, 60, 0.85); }
+  .mp--black-red input[type="range"]::-webkit-slider-thumb {
+    box-shadow: -100vw 0 0 100vw rgba(220, 20, 60, 0.85); }
+
+.mp--materialistic {
+  background: #fff;
+  color: #fff;
+  font-weight: bolder;
+  border-radius: 0; }
+  .mp--materialistic * {
+    font-family: 'Righteous', cursive; }
+  .mp--materialistic .mp__details {
+    background: rgba(62, 80, 181, 0.9); }
+  .mp--materialistic .mp__playlist {
+    color: #000; }
+    .mp--materialistic .mp__playlist-btn {
+      color: #000;
+      font-weight: bold; }
+      .mp--materialistic .mp__playlist-btn--selected, .mp--materialistic .mp__playlist-btn:hover {
+        color: #fff;
+        border: 0;
+        background: rgba(62, 80, 181, 0.85); }
+    .mp--materialistic .mp__playlist-items {
+      color: #000; }
+  .mp--materialistic .mp__options {
+    background-color: #3e50b5; }
+    .mp--materialistic .mp__options > h3 {
+      color: #000; }
+    .mp--materialistic .mp__options-toggle {
+      background: rgba(62, 80, 181, 0.8); }
+    .mp--materialistic .mp__options-theme-select, .mp--materialistic .mp__options-upload-btn {
+      font-size: 1.3rem; }
+    .mp--materialistic .mp__options-theme-select > * {
+      background: rgba(62, 80, 181, 0.8); }
+  .mp--materialistic .mp__controls-btn {
+    background: rgba(255, 255, 255, 0.835);
+    transition: all .2s; }
+  .mp--materialistic input[type="range"]::-ms-fill-lower {
+    background: rgba(0, 0, 139, 0.4); }
+  .mp--materialistic input[type="range"]::-moz-range-progress {
+    background: rgba(0, 0, 139, 0.4); }
+  .mp--materialistic input[type="range"]::-webkit-slider-thumb {
+    box-shadow: -100vw 0 0 100vw darkblue; }
+
+.mp--light {
+  background: #fff;
+  color: #000;
+  font-weight: bolder;
+  border-radius: 0;
+  letter-spacing: .3rem;
+  border: .2px solid #ccc; }
+  .mp--light * {
+    font-family: 'Teko', sans-serif; }
+  .mp--light .mp__details {
+    background: rgba(223, 222, 222, 0.979); }
+  .mp--light .mp__playlist {
+    color: #000; }
+    .mp--light .mp__playlist-btn {
+      color: #000;
+      font-size: 1.5rem;
+      letter-spacing: .2rem;
+      font-weight: bold; }
+      .mp--light .mp__playlist-btn--selected, .mp--light .mp__playlist-btn:hover {
+        color: #fff;
+        border: 0;
+        background: rgba(0, 0, 0, 0.7); }
+    .mp--light .mp__playlist-items {
+      color: #000; }
+  .mp--light .mp__options {
+    background-color: rgba(223, 222, 222, 0.979); }
+    .mp--light .mp__options * {
+      color: #000; }
+    .mp--light .mp__options > h3 {
+      color: #000; }
+    .mp--light .mp__options-toggle {
+      background: #000; }
+    .mp--light .mp__options-theme-select, .mp--light .mp__options-upload-btn {
+      font-size: 1.9rem;
+      letter-spacing: .3rem;
+      background: #ccc; }
+    .mp--light .mp__options-theme-select > * {
+      background: #fff; }
+  .mp--light .mp__song-duration-bar {
+    height: 10px; }
+  .mp--light .mp__controls-btn {
+    background: rgba(255, 255, 255, 0.835);
+    transition: all .2s; }
+  .mp--light input[type="range"]::-ms-fill-lower {
+    background: rgba(0, 0, 0, 0.7); }
+  .mp--light input[type="range"]::-moz-range-progress {
+    background: rgba(0, 0, 0, 0.7); }
+  .mp--light input[type="range"]::-webkit-slider-thumb {
+    box-shadow: -100vw 0 0 100vw rgba(0, 0, 0, 0.7); }

@@ -2,7 +2,7 @@
 <html lang="en">
 <?php require "includes/header.php" ?>
 <body>
-    <div id="mp" class="mp" draggable>
+    <div id="mp" class="mp mp--dark" draggable>
         <div class="mp__options-toggle">
             <div id="alert-danger" class="alert alert-danger">
             <?php if (isset($_SESSION["message-danger"])) {
