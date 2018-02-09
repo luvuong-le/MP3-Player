@@ -14,6 +14,16 @@
             <option value="light">Light</option>
             <option value="black-red">Black and Red</option>
         </select>
+        <div class="mp__options-voice-commands">
+            <h4>List of Voice Commands: </h4>
+            <ul>
+                <li>"Skip Song"</li>
+                <li>"Previous Song"</li>
+                <li>"Play Song"</li>
+                <li>"Pause Song"</li>
+                <li>"Turn On/Off Shuffle/Repeat"</li>
+            </ul>
+        </div>
     </div>
     <div class="mp__details">
         <img src="http://via.placeholder.com/150x150" alt="Cover" class="mp__details-art">
@@ -21,32 +31,38 @@
             <h3>Now Playing </h3>
             <p id="mp__playing-now" class="mp__playing-now"></p>
             <div class="mp__controls">
-                <button id="mp__controls-previous" class="mp__controls-btn">
+                <button id="mp__controls-previous" class="mp__controls-btn" title="Previous Song">
                     <svg class="mp__controls-icon">
                         <use  xlink:href="icons/sprite.svg#icon-previous2"></use>
                     </svg>
                 </button>
-                <button id="mp__controls-playpause" class="mp__controls-btn">                                
+                <button id="mp__controls-playpause" class="mp__controls-btn" title="Play/Pause">                                
                     <svg class="mp__controls-icon">
                         <use id="playpauseicon"xlink:href="icons/sprite.svg#icon-play3"></use>
                     </svg>
                 </button>
-                <button id="mp__controls-next" class="mp__controls-btn">                                
+                <button id="mp__controls-next" class="mp__controls-btn" title="Next Song">
                     <svg class="mp__controls-icon">
                         <use xlink:href="icons/sprite.svg#icon-next2"></use>
                     </svg>
                 </button>
-                <button id="mp__controls-shuffle" class="mp__controls-btn">
+                <button id="mp__controls-shuffle" class="mp__controls-btn" title="Shuffle">
                     <svg class="mp__controls-icon">
                         <use xlink:href="icons/sprite.svg#icon-shuffle"></use>
                     </svg>
                     <input type="checkbox" id="mp__controls-check-shuffle" class="mp__controls-check mp__controls-check-shuffle">
                 </button>
-                <button id="mp__controls-repeat" class="mp__controls-btn">
+                <button id="mp__controls-repeat" class="mp__controls-btn" title="Repeat">
                     <svg class="mp__controls-icon">
                         <use xlink:href="icons/sprite.svg#icon-loop"></use>
                     </svg>
                     <input type="checkbox" id="mp__controls-check-repeat" class="mp__controls-check mp__controls-check-repeat">
+                </button>
+                <button id="mp__controls-microphone" class="mp__controls-btn" title="Activate/Deactivate Voice (Off By Default) | Check options for a list of commands">
+                    <svg class="mp__controls-icon">
+                        <use xlink:href="icons/sprite.svg#icon-mic"></use>
+                    </svg>
+                    <input type="checkbox" id="mp__controls-check-mic" class="mp__controls-check mp__controls-check-mic">
                 </button>
             </div>
         </div>

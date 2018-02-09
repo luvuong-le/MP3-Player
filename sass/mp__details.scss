@@ -1,4 +1,6 @@
 // Extends 
+@import "abstracts/mixins";
+
 %btn-hover {
     background: #fff;
     color: #000;
@@ -145,6 +147,12 @@
             &:active {
                 transform: translateY(1rem);
             }
+        }
+        &-voice-commands {
+            text-align: center;
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
         }
     }
 

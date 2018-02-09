@@ -220,6 +220,26 @@ let musicPlayer = {
         }
     },
 
+    turnOnShuffle: function() {
+        this.e.shuffleBtn.style.backgroundColor = "#aaa";
+        this.e.shuffleCheckbox.checked = true;
+    },
+
+    turnOnRepeat: function() {
+        this.e.repeatBtn.style.backgroundColor = "#aaa";
+        this.e.repeatCheckbox.checked = true;
+    },
+
+    turnOffShuffle: function () {
+        this.e.shuffleBtn.style.backgroundColor = "#fff";
+        this.e.shuffleCheckbox.checked = false;
+    },
+
+    turnOffRepeat: function () {
+        this.e.repeatBtn.style.backgroundColor = "#fff";
+        this.e.repeatCheckbox.checked = false;
+    },
+
     addListeners: function() {
         for (let i = 0; i < this.e.songItems.length; i++) {
             // Add event listener 
@@ -318,22 +338,18 @@ let musicPlayer = {
         // Shuffle Button
         this.e.shuffleBtn.addEventListener("click", () => {
             if (this.e.shuffleCheckbox.checked == true) {
-                this.e.shuffleCheckbox.checked = false;
-                this.e.shuffleBtn.style.backgroundColor = "#fff";
+                this.turnOffShuffle();
             } else {
-                this.e.shuffleCheckbox.checked = true;
-                this.e.shuffleBtn.style.backgroundColor = "#aaa";
+                this.turnOnShuffle();
             }
         });
         
         // Repeat
         this.e.repeatBtn.addEventListener("click", () => {
             if (this.e.repeatCheckbox.checked == true) {
-                this.e.repeatCheckbox.checked = false;
-                this.e.repeatBtn.style.backgroundColor = "#fff";
+                this.turnOffRepeat();
             } else {
-                this.e.repeatCheckbox.checked = true;
-                this.e.repeatBtn.style.backgroundColor = "#aaa";
+                this.turnOnRepeat();
             }
         });
 
