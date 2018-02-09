@@ -225,7 +225,8 @@ html {
       border-radius: 50%;
       padding: 1.5rem 0rem;
       cursor: pointer;
-      transition: all .2s; }
+      transition: all .2s;
+      background: #fff; }
       @media only screen and (max-width: 37.5em) {
         .mp__controls-btn {
           height: 4.5rem;
@@ -238,7 +239,7 @@ html {
         .mp__controls-btn:not(:first-child) {
           margin-left: 0rem; } }
       .mp__controls-btn:hover {
-        background: #fff;
+        background: #aaa;
         color: #000;
         border: 0.15rem solid #567da5;
         transform: translateY(-0.2rem); }

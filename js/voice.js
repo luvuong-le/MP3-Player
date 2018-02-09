@@ -1,40 +1,49 @@
-let mic = document.getElementById("mp__controls-microphone");
-let micCheck = document.getElementById("mp__controls-check-mic");
+const mic = document.getElementById("mp__controls-microphone");
+const micCheck = document.getElementById("mp__controls-check-mic");
+const synth = window.speechSynthesis;
 
 if (annyang) {
     var commands = {
         'skip song': function() {
+            speak("Skipping Song");
             musicPlayer.removeSelected();
             musicPlayer.playNextSong();
         },
 
         'previous song': function() {
+            speak("Going to previous song");
             musicPlayer.removeSelected();
             musicPlayer.playPreviousSong();
         },
 
         'pause song': function() {
+            speak("Song is paused");
             musicPlayer.pauseSong();
         },
 
         'play song': function() {
+            speak("Playing Song");
             musicPlayer.playToggle();
         },
 
-        'turn on shuffle': function() {        
+        'turn on shuffle': function() {   
             musicPlayer.turnOnShuffle();
+            speak("Shuffle is on");
         },
         
         'turn on repeat': function() {
             musicPlayer.turnOnRepeat();
+            speak("Repeat is on");
         },
 
         'turn off shuffle': function () {
             musicPlayer.turnOffShuffle();
+            speak("Shuffle is off");
         },
 
         'turn off repeat': function () {
             musicPlayer.turnOffRepeat();
+            speak("Repeat is off");
         },
     };
 
@@ -52,4 +61,9 @@ if (annyang) {
             annyang.resume();
         }
     });
+}
+
+function speak(text) {
+    let msg = new SpeechSynthesisUtterance(text);
+    synth.speak(msg);
 }

@@ -53,6 +53,15 @@ html {
   .alert-success {
     color: greenyellow; }
 
+/*
+
+    0 - 600px: Phones
+    600 - 900px: Tablets Portrait
+    900 - 1350px: Tablet Landscape
+    1350 - 1800+ : Normal Styles
+    1800+ Big desktop
+
+*/
 .mp__options-label:hover, .mp__options-upload-btn:hover {
   background: #fff;
   color: #000;
@@ -162,6 +171,11 @@ html {
       z-index: -1; }
     .mp__options-upload-btn:active {
       transform: translateY(1rem); }
+    .mp__options-voice-commands {
+      text-align: center;
+      width: 100%;
+      height: auto;
+      margin: 0 auto; }
   .mp__details {
     display: grid;
     grid-template-rows: max-content 4rem min-content;
@@ -211,7 +225,8 @@ html {
       border-radius: 50%;
       padding: 1.5rem 0rem;
       cursor: pointer;
-      transition: all .2s; }
+      transition: all .2s;
+      background: #fff; }
       @media only screen and (max-width: 37.5em) {
         .mp__controls-btn {
           height: 4.5rem;
@@ -224,7 +239,7 @@ html {
         .mp__controls-btn:not(:first-child) {
           margin-left: 0rem; } }
       .mp__controls-btn:hover {
-        background: #fff;
+        background: #aaa;
         color: #000;
         border: 0.15rem solid #567da5;
         transform: translateY(-0.2rem); }
