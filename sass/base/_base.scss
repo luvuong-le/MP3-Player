@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=VT323');
 @import url('https://fonts.googleapis.com/css?family=Righteous');
 @import url('https://fonts.googleapis.com/css?family=Teko');
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
 
 // Variables 
 $mp: ".mp";
@@ -12,7 +13,7 @@ $mp: ".mp";
 }
 
 html {
-    font-family: 'VT323', monospace;
+    font-family: 'Audiowide', cursive;
     font-size: 62.5%;
 }
 
@@ -57,12 +58,20 @@ html {
     display: inline-block;
     font-weight: bold;
     font-style: italic;
+    font-size: 1.6rem;
+    margin: 0;
+
+    @include respond(phone) {
+      font-size: 1.2rem;
+    }
 
     &-danger {
+        background: rgba(252, 85, 118, 0.9);
         color: crimson;
     }
 
     &-success {
-        color: greenyellow;
+        background: lightgreen;
+        color: darkgreen;
     }
 }

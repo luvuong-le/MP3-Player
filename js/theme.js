@@ -6,6 +6,7 @@ let themes = {
     
     themeSelectListener: function(e) {
         this.e.themesOptions.addEventListener("change", (e) => {
+            localStorage.setItem("currentThemeValue", this.e.themesOptions.value);
             switch(this.e.themesOptions.value) {
                 case "default": 
                     this.updateTheme("mp");
@@ -39,11 +40,39 @@ let themes = {
     changeTheme: function(themeName) {
         this.e.mpCont.classList.add("mp");
         this.e.mpCont.classList.add(themeName);
+        localStorage.setItem("currentTheme", themeName);
+    },
+
+    displayCurrentTheme: function() {
+        if (localStorage.getItem("currentTheme") != null) {
+            this.updateTheme(localStorage.getItem("currentTheme"));
+            // Change default theme type in select box
+            this.changeSelectDefault();
+        }
+    },
+
+    removeSelectedDefault: function() {
+        for (let option of this.e.themesOptions) {
+            option.selected = false;
+        } 
+    },
+
+    changeSelectDefault: function() {
+        this.removeSelectedDefault();
+        
+        for (let option of this.e.themesOptions) {
+            if (option.value == localStorage.getItem("currentThemeValue")) {
+                option.selected = true;
+            }
+        }
     },
 
     init: function() {
         this.themeSelectListener();
         this.e.themesOptions.value = this.e.themesOptions[0].value;
+
+        // Set the current theme in the local storage
+        this.displayCurrentTheme();
     }
 };
 

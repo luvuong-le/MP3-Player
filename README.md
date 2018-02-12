@@ -17,4 +17,6 @@ Steps for usage:
 
 ****** IMPORTANT NOTES ******
 
-This music player is only compatible with .mp3 files
+This music player is only compatible with .mp3 files.
+Take care not to upload more than the php.ini max file upload limit, if you require to upload a large amount at once, please update
+the maximum file upload limit.

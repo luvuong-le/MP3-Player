@@ -66,10 +66,11 @@
         &-toggle {
             width: 100%;
             display: flex;
-            text-align: right;
-            padding: 0rem 1rem;
+            padding: 0rem 1rem 0rem 0rem;
             position: absolute;
             top: 0;
+            left: 0;
+            z-index: 4;
 
             &-icon {
                 width: 2rem;
@@ -86,7 +87,8 @@
         }
 
         &-upload-btn, &-theme-select {
-            font-family: 'VT323', monospace;
+            font-family: 'Audiowide',
+            cursive;
             font-size: 1.8rem;
             transition: all .2s;
             border: 0;
@@ -354,7 +356,7 @@
 
         @include respond(phone) {
             height: 50%;
-            overflow-x: hidden;
+            overflow-y: hidden;
         }
 
         &-items {
@@ -370,7 +372,8 @@
         }
 
         &-btn {
-              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+            font-family: 'Audiowide',
+            cursive;
             transition: all .2s;
             width: 100%;
             border: 0;

@@ -10,13 +10,14 @@
 @import url("https://fonts.googleapis.com/css?family=VT323");
 @import url("https://fonts.googleapis.com/css?family=Righteous");
 @import url("https://fonts.googleapis.com/css?family=Teko");
+@import url("https://fonts.googleapis.com/css?family=Audiowide");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box; }
 
 html {
-  font-family: 'VT323', monospace;
+  font-family: 'Audiowide', cursive;
   font-size: 62.5%; }
 
 @keyframes slideLeftToRight {
@@ -47,11 +48,18 @@ html {
   text-align: left;
   display: inline-block;
   font-weight: bold;
-  font-style: italic; }
+  font-style: italic;
+  font-size: 1.6rem;
+  margin: 0; }
+  @media only screen and (max-width: 37.5em) {
+    .alert {
+      font-size: 1.2rem; } }
   .alert-danger {
+    background: rgba(252, 85, 118, 0.9);
     color: crimson; }
   .alert-success {
-    color: greenyellow; }
+    background: lightgreen;
+    color: darkgreen; }
 
 /*
 
@@ -116,10 +124,11 @@ html {
     .mp__options-toggle {
       width: 100%;
       display: flex;
-      text-align: right;
-      padding: 0rem 1rem;
+      padding: 0rem 1rem 0rem 0rem;
       position: absolute;
-      top: 0; }
+      top: 0;
+      left: 0;
+      z-index: 4; }
       .mp__options-toggle-icon {
         width: 2rem;
         height: 2rem;
@@ -130,7 +139,7 @@ html {
         .mp__options-toggle-icon:active {
           transform: translateX(-0.2rem); }
     .mp__options-upload-btn, .mp__options-theme-select {
-      font-family: 'VT323', monospace;
+      font-family: 'Audiowide', cursive;
       font-size: 1.8rem;
       transition: all .2s;
       border: 0;
@@ -312,7 +321,7 @@ html {
     @media only screen and (max-width: 37.5em) {
       .mp__playlist {
         height: 50%;
-        overflow-x: hidden; } }
+        overflow-y: hidden; } }
     .mp__playlist-items {
       height: 100%;
       width: 100%;
@@ -323,7 +332,7 @@ html {
         .mp__playlist-items {
           overflow-x: hidden; } }
     .mp__playlist-btn {
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-family: 'Audiowide', cursive;
       transition: all .2s;
       width: 100%;
       border: 0;
