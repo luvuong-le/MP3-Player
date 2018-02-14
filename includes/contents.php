@@ -3,8 +3,8 @@
         <h4>Upload MP3 Files</h4>
         <form method="POST" enctype="multipart/form-data" class="mp__options-form">
             <input type="file" id="mp__options-upload-btn" name="mp__options-songs[]" class="mp__options-upload-btn mp__options-upload-btn--hidden" hidden="hidden" multiple>
-            <label for="file" id="mp__options-label" class="mp__options-label">Upload MP3 Files</label>
-            <input type="submit" name="submit" id="mp__options-file-submit" value="Upload Songs" class="mp__options-upload-btn"><br>
+            <label for="file" id="mp__options-label" class="mp__options-label">Select MP3 Files</label>
+            <input type="submit" name="submit" id="mp__options-file-submit" value="Upload" class="mp__options-upload-btn"><br>
             <span id="mp__options-label-caption" class="mp__options-label-caption">No Files Selected</span>
         </form>
         <h4>Select a Theme</h4>
