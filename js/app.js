@@ -157,6 +157,7 @@ let musicPlayer = {
     },
 
     playNextSong: function() {
+        this.checkMultipleSongPlaying();
         let songIndex = 0;
         
         if (this.e.currentlyPlaying[0] != undefined) {
@@ -166,12 +167,13 @@ let musicPlayer = {
 
         let songName = this.e.songItems[songIndex].innerHTML;
 
-        this.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
-
         this.playSong(songName);
+
+        this.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
     },
 
     playPreviousSong: function() {
+        this.checkMultipleSongPlaying();
         let songIndex = this.e.songItems.length - 1;
 
         if (this.e.currentlyPlaying[0] != undefined) {
@@ -181,15 +183,15 @@ let musicPlayer = {
 
         let songName = this.e.songItems[songIndex].innerHTML;
 
-        this.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
-
         this.playSong(songName);
+        
+        this.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
     },
 
     resumeSong: function() {
         this.e.currentlyPlaying[0].play();
         //Change SVG to Pause
-        this.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2")
+        this.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2");
     },
 
     playToggle: function() {
@@ -217,6 +219,16 @@ let musicPlayer = {
         if (this.e.currentlyPlaying.length != 0) {
             this.e.currentlyPlaying[0].pause();
             this.e.currentlyPlaying = [];
+        }
+    },
+
+    checkMultipleSongPlaying: function() {
+        if (this.e.currentlyPlaying.length >= 2) {
+            console.log(this.e.currentlyPlaying);
+            for(let i = 1; i < this.e.currentlyPlaying.length; i++) {
+                this.e.currentlyPlaying[i].pause();
+            }
+            this.e.currentlyPlaying.splice(1);
         }
     },
 
@@ -271,6 +283,14 @@ let musicPlayer = {
                 this.playSong(e.target.innerHTML);
             });
         }
+
+        this.e.volume.addEventListener("mouseout", () => {
+            this.e.volume.blur();
+        });
+
+        this.e.playpause.addEventListener("mouseout", () => {
+            this.e.playpause.blur();
+        });
 
         window.addEventListener("keydown", (e) => {
             const LEFT = 37, RIGHT = 39, SPACE = 32, UP = 38, DOWN = 40;
@@ -331,6 +351,7 @@ let musicPlayer = {
                 this.e.currentlyPlaying[0].pause();
                 this.speedSkip = setInterval(() => {
                     this.e.currentlyPlaying[0].currentTime++;
+                    console.log(this.e.currentlyPlaying[0].currentTime);
                     this.e.songProgressBar.value = this.e.currentlyPlaying[0].currentTime;
                 }, 30);
                 this.e.currentlyPlaying[0].play();
@@ -338,11 +359,13 @@ let musicPlayer = {
         });
 
         this.e.next.addEventListener("mouseout", () => {
+            this.e.next.blur();
             clearTimeout(this.timeOutPress);
             clearInterval(this.speedSkip); 
         });
 
         this.e.previous.addEventListener("mouseout", () => {
+            this.e.previous.blur();
             clearTimeout(this.timeOutPress);
             clearInterval(this.speedRewind);
         });
@@ -464,6 +487,10 @@ let musicPlayer = {
             this.e.repeatCheckbox.checked = false;
             this.e.shuffleCheckbox.checked = false;
         }
+
+        setInterval(() => {
+            this.checkMultipleSongPlaying();
+        }, 500);
     },
 };
 
