@@ -240,6 +240,28 @@ let musicPlayer = {
         this.e.repeatCheckbox.checked = false;
     },
 
+    changeVolumeIcon: function() {
+        if (this.e.currentlyPlaying.length != 0) {
+            this.e.currentlyPlaying[0].volume = this.e.volume.value / 100;
+            this.e.volumeValue.innerHTML = this.e.volume.value;
+            if (this.e.currentlyPlaying[0].volume == 0) {
+                this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-mute");
+            }
+
+            if (this.e.currentlyPlaying[0].volume > 0 && this.e.currentlyPlaying[0].volume < 0.35) {
+                this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-low");
+            }
+
+            if (this.e.currentlyPlaying[0].volume > 0.35 && this.e.currentlyPlaying[0].volume < 0.75) {
+                this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-medium");
+            }
+
+            if (this.e.currentlyPlaying[0].volume > 0.75 && this.e.currentlyPlaying[0].volume <= 1) {
+                this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-high");
+            }
+        }
+    },
+
     addListeners: function() {
         for (let i = 0; i < this.e.songItems.length; i++) {
             // Add event listener 
@@ -250,20 +272,35 @@ let musicPlayer = {
             });
         }
 
-        window.addEventListener("keypress", (e) => {
-            const LEFT = 37, RIGHT = 39, SPACE = 0;
+        window.addEventListener("keydown", (e) => {
+            const LEFT = 37, RIGHT = 39, SPACE = 32, UP = 38, DOWN = 40;
             switch (e.keyCode) {
                 case LEFT: 
+                    this.removeSelected();
                     this.playPreviousSong();
                     break;
                 case RIGHT: 
+                    this.removeSelected();
                     this.playNextSong();
                     break;
                 case SPACE: 
                     this.playToggle();
                     break;
+                case UP:
+                    this.e.volume.value++;
+                    this.e.volumeValue.textContent = this.e.volume.value;
+                    this.e.currentlyPlaying[0].volume = this.e.volume.value / 100;
+                    this.changeVolumeIcon();
+                    break;
+                case DOWN:
+                    this.e.volume.value--;
+                    this.e.volumeValue.textContent = this.e.volume.value;
+                    this.e.currentlyPlaying[0].volume = this.e.volume.value / 100;
+                    this.changeVolumeIcon();
+                    break;
                 default:
                     console.log("error");
+                    break;
             }
         });
 
@@ -354,25 +391,7 @@ let musicPlayer = {
         });
 
         this.e.volume.addEventListener("input", () => {
-            if (this.e.currentlyPlaying.length != 0) {
-                this.e.currentlyPlaying[0].volume = this.e.volume.value / 100;
-                this.e.volumeValue.innerHTML = this.e.volume.value;
-                if (this.e.currentlyPlaying[0].volume == 0) {
-                    this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-mute");
-                } 
-
-                if (this.e.currentlyPlaying[0].volume > 0 && this.e.currentlyPlaying[0].volume < 0.35) {
-                    this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-low");
-                }
-
-                if (this.e.currentlyPlaying[0].volume > 0.35 && this.e.currentlyPlaying[0].volume < 0.75) {
-                    this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-medium");
-                }
-
-                if (this.e.currentlyPlaying[0].volume > 0.75 && this.e.currentlyPlaying[0].volume <= 1) {
-                    this.e.volumeicon.setAttribute("xlink:href", "icons/sprite.svg#icon-volume-high");
-                }
-            }
+            this.changeVolumeIcon();
         });
 
         this.e.optionToggle.addEventListener("click", () => {
@@ -452,7 +471,7 @@ musicPlayer.init();
 
 
 function initTypeWriter(songName) {
-    let i = 0;
+    var i = 0;
     const textLength = songName.innerHTML.length;
     const actualText = songName.innerHTML;
     musicPlayer.e.nowPlaying.innerHTML = "";
