@@ -10,7 +10,7 @@
 
 .mp {
     width: 50%;
-    height: 85%;
+    height: 95%;
     background-color: #000;
     color: #fff;
     position: absolute;
@@ -25,8 +25,8 @@
     border-radius: 5px;
 
     @include respond(tablet-landscape) {
-        width: 65%;
-        height: 95%;
+        width: 75%;
+        height: 100%;
     }
 
     @include respond(tablet-portrait) {
