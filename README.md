@@ -15,8 +15,8 @@ Steps for usage:
 - Load the application index.php using a web server. 
 
 
-****** IMPORTANT NOTES ******
-
-This music player is only compatible with .mp3 files.
-Take care not to upload more than the php.ini max file upload limit, if you require to upload a large amount at once, please update
-the maximum file upload limit.
+IMPORTANT NOTES: 
+- This music player is only compatible with .mp3 files.
+- Take care not to upload more than the php.ini max file upload limit, if you require to upload a large amount at once, please update the maximum file upload limit. 
+- Responsiveness on mobiles and tablets are not perfect as of now
+- Lastly, this is best used on a laptop or desktop PC, the application is does not behave well on mobile or tablet devices for now
