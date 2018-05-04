@@ -18,7 +18,7 @@ let musicPlayer = {
         optionCont: document.getElementById("mp__options"),
         optionToggle: document.getElementById("mp__options-toggle-icon"),
 
-        // Controls  
+        // Controls
         previous: document.getElementById("mp__controls-previous"),
         playpause: document.getElementById("mp__controls-playpause"),
         next: document.getElementById("mp__controls-next"),
@@ -75,11 +75,11 @@ let musicPlayer = {
         if (this.e.currentlyPlaying[0] != null) {
             // If current song is not equal to null then update local storage with the currently playing song and all its details in an object
 
-            // Session Storage will keep track of: 
+            // Session Storage will keep track of:
             /*
                 Song Name:
                 Song Duration:
-                Song Current Time: 
+                Song Current Time:
             */
             let currently_playing = {
                 "name": this.e.currentlyPlaying[0].textContent,
@@ -92,7 +92,7 @@ let musicPlayer = {
     },
 
     removeCurrentSong: function() {
-        localStorage.removeItem("currently_playing");    
+        localStorage.removeItem("currently_playing");
     },
 
     playSong: function(songName) {
@@ -101,13 +101,13 @@ let musicPlayer = {
         songToPlay.innerHTML = songName;
 
         songToPlay.addEventListener("loadedmetadata", () => {
-            // Set the initial volume of the song based on where the slider is 
+            // Set the initial volume of the song based on where the slider is
             songToPlay.volume = musicPlayer.e.volume.value / 100;
 
             this.e.currentlyPlaying.push(songToPlay);
-            
+
             let data = JSON.parse(localStorage.getItem("currently_playing"));
-            
+
             if (data != null && songName == data.name) {
                 this.e.currentlyPlaying[0].currentTime = data.current_time;
                 this.e.songProgressBar.value = data.current_time;
@@ -120,9 +120,9 @@ let musicPlayer = {
             // this.e.songProgressBar.max = this.e.currentlyPlaying[0].duration;
             this.e.songProgressBar.max = this.e.currentlyPlaying[0].duration;
 
-            // Update 
+            // Update
             this.updateDetails();
-            
+
             //Change SVG to Pause
             this.e.playpauseicon.setAttribute("xlink:href", "icons/sprite.svg#icon-pause2");
 
@@ -132,12 +132,12 @@ let musicPlayer = {
         songToPlay.addEventListener("timeupdate", () => {
             let time = songToPlay.currentTime * 1000;
             let currentTime = moment.utc(time).format("mm:ss");
-            
+
             // Update song timer
             this.e.songStartTime.innerHTML = currentTime;
 
-            // Update the progress bar value 
-            this.e.songProgressBar.value = (this.e.currentlyPlaying[0] == null) 
+            // Update the progress bar value
+            this.e.songProgressBar.value = (this.e.currentlyPlaying[0] == null)
                                                   ? 0 : this.e.currentlyPlaying[0].currentTime;
 
             // Logging the Current Time of the Song
@@ -159,7 +159,7 @@ let musicPlayer = {
     playNextSong: function() {
         this.checkMultipleSongPlaying();
         let songIndex = 0;
-        
+
         if (this.e.currentlyPlaying[0] != undefined) {
             songIndex = (this.e.shuffleCheckbox.checked == true) ? Math.floor(Math.random() * this.e.songItems.length) :
             (musicPlayer.findIndex() == this.e.songItems.length - 1) ? 0 : this.findIndex() + 1;
@@ -184,7 +184,7 @@ let musicPlayer = {
         let songName = this.e.songItems[songIndex].innerHTML;
 
         this.playSong(songName);
-        
+
         this.e.songItems[songIndex].classList.add("mp__playlist-btn--selected");
     },
 
@@ -276,7 +276,7 @@ let musicPlayer = {
 
     addListeners: function() {
         for (let i = 0; i < this.e.songItems.length; i++) {
-            // Add event listener 
+            // Add event listener
             this.e.songItems[i].addEventListener("click", (e) => {
                 this.removeSelected();
                 this.e.songItems[i].classList.add("mp__playlist-btn--selected");
@@ -295,16 +295,20 @@ let musicPlayer = {
         window.addEventListener("keydown", (e) => {
             const LEFT = 37, RIGHT = 39, SPACE = 32, UP = 38, DOWN = 40;
             switch (e.keyCode) {
-                case LEFT: 
+                case LEFT:
                     this.removeSelected();
                     this.playPreviousSong();
                     break;
-                case RIGHT: 
+                case RIGHT:
                     this.removeSelected();
                     this.playNextSong();
                     break;
-                case SPACE: 
-                    this.playToggle();
+                case SPACE:
+                    if (e.target.parentElement.id !== "mp__playlist-items") {
+                        this.playToggle();
+                    } else {
+                        e.preventDefault();
+                    }
                     break;
                 case UP:
                     this.e.volume.value++;
@@ -361,7 +365,7 @@ let musicPlayer = {
         this.e.next.addEventListener("mouseout", () => {
             this.e.next.blur();
             clearTimeout(this.timeOutPress);
-            clearInterval(this.speedSkip); 
+            clearInterval(this.speedSkip);
         });
 
         this.e.previous.addEventListener("mouseout", () => {
@@ -403,7 +407,7 @@ let musicPlayer = {
                 this.turnOnShuffle();
             }
         });
-        
+
         // Repeat
         this.e.repeatBtn.addEventListener("click", () => {
             if (this.e.repeatCheckbox.checked == true) {
@@ -431,7 +435,7 @@ let musicPlayer = {
     findIndex: function() {
         if (this.e.songItems.length != null) {
             for (let i = 0; i < this.e.songItems.length; i++) {
-                // Add event listener 
+                // Add event listener
                 if (this.e.songItems[i].innerHTML == this.e.currentlyPlaying[0].innerHTML) {
                     return i;
                 }
@@ -455,14 +459,14 @@ let musicPlayer = {
         if (this.retype == null) {
             this.retype = setInterval(() => {
                 initTypeWriter(this.e.currentlyPlaying[0]);
-            }, 60000); 
+            }, 60000);
         } else {
             this.clearTyping(this.retype);
             this.retype = setInterval(() => {
                 initTypeWriter(this.e.currentlyPlaying[0]);
-            }, 60000); 
+            }, 60000);
         }
-        
+
         // Update Song Duration
         this.e.songEndTime.innerHTML = moment.utc(musicPlayer.e.currentlyPlaying[0].duration * 1000).format("mm:ss");
     },
@@ -470,7 +474,7 @@ let musicPlayer = {
     init: function() {
         this.createButtons();
 
-        // If there is a current song in the local storage play it, otherwise set to default values 
+        // If there is a current song in the local storage play it, otherwise set to default values
         let currently_playing = JSON.parse(localStorage.getItem("currently_playing"));
 
         if (currently_playing != null) {
@@ -496,14 +500,13 @@ let musicPlayer = {
 
 musicPlayer.init();
 
-
 function initTypeWriter(songName) {
     var i = 0;
     const textLength = songName.innerHTML.length;
     const actualText = songName.innerHTML;
     musicPlayer.e.nowPlaying.innerHTML = "";
 
-    // Clear Timeout before writing new text 
+    // Clear Timeout before writing new text
     if (musicPlayer.typeWriter != null) { clearTimeout(musicPlayer.typeWriter); }
     type(i, textLength, actualText);
 }
